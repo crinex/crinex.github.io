@@ -1,3 +1,8 @@
+---
+layout: single
+title: "BMS2021 : 1"
+---
+
 # BMS 2021 
 
 ## Chapter - 3 : 분류
