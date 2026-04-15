@@ -1,0 +1,34 @@
+[
+  {
+    "date": "Nov 2025",
+    "text": "Presenting <a href=\"https://aclanthology.org/anthology-files/pdf/findings/2025.findings-emnlp.1143.pdf\" target=\"_blank\">\"Riemannian Optimization for LoRA on the Stiefel Manifold\"</a> at **EMNLP 2025** in Suzhou, China."
+  },
+  {
+    "date": "Jul 2025",
+    "text": "Paper accepted to **EMNLP 2025**: \"Riemannian Optimization for LoRA on the Stiefel Manifold\" (co-first author)."
+  },
+  {
+    "date": "Apr 2025",
+    "text": "Paper published in **J. Clin. Sleep Med.**: <a href=\"https://jcsm.aasm.org/doi/abs/10.5664/jcsm.11560\" target=\"_blank\">\"A Novel ML Model for OSA Screening\"</a> (co-first author)."
+  },
+  {
+    "date": "Jan 2025",
+    "text": "Presenting <a href=\"https://ojs.aaai.org/index.php/AAAI/article/view/34185\" target=\"_blank\">\"Riemannian Geometric-based Meta Learning\"</a> at **AAAI 2025** in Philadelphia, USA."
+  },
+  {
+    "date": "Oct 2024",
+    "text": "Paper accepted to **AAAI 2025**: \"Riemannian Geometric-based Meta Learning\"."
+  },
+  {
+    "date": "Feb 2024",
+    "text": "New preprint: <a href=\"https://arxiv.org/abs/2404.15333\" target=\"_blank\">\"EB-GAME: A Game-Changer in ECG Heartbeat Anomaly Detection\"</a> on arXiv."
+  },
+  {
+    "date": "Jan 2024",
+    "text": "Presenting <a href=\"https://ojs.aaai.org/index.php/AAAI/article/view/30496\" target=\"_blank\">\"Skip-GANomaly++\"</a> at **AAAI 2024** in Vancouver, Canada."
+  },
+  {
+    "date": "Oct 2023",
+    "text": "Presenting <a href=\"https://ieeexplore.ieee.org/abstract/document/10320072\" target=\"_blank\">\"OSA-NET\"</a> at **IPTA 2023** in Paris, France."
+  }
+]

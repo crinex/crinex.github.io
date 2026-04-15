@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Nimbo",
+    "url": "https://github.com/crinex/Nimbo",
+    "description": "A lightweight, end-to-end LLM fine-tuning framework designed for on-device deployment on edge devices and mobile platforms.",
+    "links": [
+      {"label": "Homepage", "url": "https://crinex.github.io/nimbo/"},
+      {"label": "GitHub", "url": "https://github.com/crinex/Nimbo"}
+    ],
+    "features": [
+      "Complete pipeline: LoRA fine-tune → export/merge → convert to mobile formats → deploy",
+      "Minimal dependencies (~50MB) with Triton GPU kernel acceleration (7–8x speedup for RMSNorm)",
+      "CoreML export for iOS/macOS with 4/6/8-bit LUT quantization",
+      "Supports LLaMA 3.2, EXAONE, Phi, Qwen2, Mistral, Gemma, and more"
+    ],
+    "tags": ["Python", "On-Device LLM", "LoRA", "CoreML", "MIT License"]
+  }
+]

@@ -1,0 +1,143 @@
+[
+  {
+    "title": "EXAONE-4.0 On-Device LLM Optimization for iOS ANE",
+    "period": "2025.11 – 2026.02",
+    "client": "LG Uplus",
+    "overview": "Add a concise summary of this iOS ANE deployment project and why it mattered for the product.",
+    "heroImage": "./assets/jyoung_profile.png",
+    "gallery": ["./assets/jyoung_profile.png", "./assets/nimbo_play.png", "./assets/jyoung_profile.png"],
+    "context": [
+      "Goal: Enter your top-line business or product goal.",
+      "Users: Enter who directly benefited from this release.",
+      "Platform: iOS / Apple ANE / mobile memory constraints"
+    ],
+    "roleScope": [
+      "Role: Enter your ownership level and decision authority.",
+      "Scope: Enter which models/features were in scope.",
+      "Collaboration: Enter key stakeholders and partner teams."
+    ],
+    "description": [
+      "Optimized EXAONE 4.0 to run efficiently on Apple's ANE (Apple Neural Engine) within mobile memory constraints",
+      "Performed graph restructuring, operator replacements, and memory optimizations aligned with ANE limitations",
+      "Made official contribution to the Anemll framework",
+      "Validated performance and model quality for deployment in LG Uplus ixi-O mobile service"
+    ],
+    "approach": [
+      "Describe ANE-aware graph redesign and operator strategy.",
+      "Describe memory optimization techniques and pipeline changes.",
+      "Describe evaluation flow (latency, stability, quality)."
+    ],
+    "challenges": [
+      "Document hardest engineering constraints.",
+      "Document the trade-off you made and why.",
+      "Document mitigation/rollback strategy."
+    ],
+    "metrics": [
+      "Latency: add baseline -> result.",
+      "Memory: add peak usage reduction.",
+      "Quality: add evaluation result delta."
+    ],
+    "links": [
+      {"label": "Add architecture diagram", "url": "#"},
+      {"label": "Add demo video", "url": "#"},
+      {"label": "Add release note / PR", "url": "#"}
+    ],
+    "nextSteps": [
+      "Add follow-up optimization plan.",
+      "Add scaling plan to more devices/models.",
+      "Add production monitoring plan."
+    ]
+  },
+  {
+    "title": "LLM-based Document Analysis for Intel NPU",
+    "period": "2025.07 – 2025.12",
+    "client": "Polaris Office",
+    "overview": "Add one paragraph explaining this enterprise document intelligence project and key product impact.",
+    "heroImage": "./assets/jyoung_profile.png",
+    "gallery": ["./assets/jyoung_profile.png", "./assets/jyoung_profile.png", "./assets/nimbo_play.png"],
+    "context": [
+      "Goal: define target document understanding objective.",
+      "Users: define enterprise users and retrieval workflows.",
+      "Platform: Intel SoC / on-device inference constraints"
+    ],
+    "roleScope": [
+      "Role: enter your exact contribution and leadership scope.",
+      "Scope: models, data schema, deployment boundary.",
+      "Collaboration: product/infra/client coordination."
+    ],
+    "description": [
+      "Fine-tuned LLM to convert unstructured documents into structured JSON/Key-Value formats for enterprise search",
+      "Designed prompt strategies for document understanding, hierarchical parsing, and key information extraction",
+      "Converted models for Intel SoC environments and built a custom inference engine instead of using OpenVINO",
+      "Established unified output schemas suitable for enterprise-scale document retrieval systems"
+    ],
+    "approach": [],
+    "challenges": [],
+    "metrics": [],
+    "links": [],
+    "nextSteps": []
+  },
+  {
+    "title": "EXAONE-4.0 On-Device LLM Optimization for Qualcomm Snapdragon NPU",
+    "period": "2025.09 – 2025.12",
+    "client": "LG Uplus",
+    "overview": "Add one paragraph summarizing why this Snapdragon track was critical and what was unlocked.",
+    "heroImage": "./assets/jyoung_profile.png",
+    "gallery": ["./assets/jyoung_profile.png", "./assets/nimbo_play.png", "./assets/jyoung_profile.png"],
+    "context": [],
+    "roleScope": [],
+    "description": [
+      "Extended previous work to EXAONE 4.0, performing architecture analysis and hardware-aware optimization for Snapdragon SoC",
+      "Developed OptAttention, a custom NPU-optimized attention kernel integrated with Qualcomm QNN",
+      "Applied structured pruning techniques to reduce parameters while maintaining accuracy",
+      "Achieved reliable long-context (8K) and multi-turn performance on Telecom service"
+    ],
+    "approach": [],
+    "challenges": [],
+    "metrics": [],
+    "links": [],
+    "nextSteps": []
+  },
+  {
+    "title": "EXAONE-3.5 On-Device LLM Advancement for Qualcomm Snapdragon NPU",
+    "period": "2025.02 – 2025.07",
+    "client": "LG Uplus",
+    "overview": "Add one paragraph explaining domain adaptation strategy and customer support impact.",
+    "heroImage": "./assets/jyoung_profile.png",
+    "gallery": ["./assets/nimbo_play.png", "./assets/jyoung_profile.png", "./assets/jyoung_profile.png"],
+    "context": [],
+    "roleScope": [],
+    "description": [
+      "Led instruction tuning and persona tuning tailored for LG U+ Telecom customer-service domain (ixi-O)",
+      "Designed domain-specific tokenizer optimization, including vocabulary pruning and token merging for Telecom terminology",
+      "Established knowledge-grounding strategies to reduce hallucinations in Telecom use cases",
+      "Refined system prompts and conversion templates specialized for Telecom call-center workflows"
+    ],
+    "approach": [],
+    "challenges": [],
+    "metrics": [],
+    "links": [],
+    "nextSteps": []
+  },
+  {
+    "title": "On-Device LLM Optimization",
+    "period": "2024.09 – 2024.12",
+    "client": "LG Uplus",
+    "overview": "Add one paragraph showing the baseline build and how it enabled later versions.",
+    "heroImage": "./assets/jyoung_profile.png",
+    "gallery": ["./assets/jyoung_profile.png", "./assets/jyoung_profile.png", "./assets/jyoung_profile.png"],
+    "context": [],
+    "roleScope": [],
+    "description": [
+      "Optimized the EXAONE 3.5 model to run on Qualcomm Snapdragon 8 Gen 3 / 8 Elite (Gen 4) NPU",
+      "Applied INT8/4 static quantization, KV-Cache quantization, and on-device modeling",
+      "Built and debugged the full PyTorch → ONNX → QNN conversion pipeline for mobile deployment",
+      "Redesigned model graph and memory layout to fit strict mobile memory constraints"
+    ],
+    "approach": [],
+    "challenges": [],
+    "metrics": [],
+    "links": [],
+    "nextSteps": []
+  }
+]

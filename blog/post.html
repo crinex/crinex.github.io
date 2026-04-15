@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Juneyoung Park</title>
+  <meta name="description" content="Blog post by Juneyoung Park">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <!-- Highlight.js -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" id="hljs-light">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css" id="hljs-dark" disabled>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/json.min.js"></script>
+  <!-- Marked.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #fafaf8;
+      --bg-secondary: #f2f1ed;
+      --bg-card: #ffffff;
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a5a;
+      --text-tertiary: #8a8a9a;
+      --accent: #1e3a5f;
+      --accent-light: #e8eef5;
+      --accent-hover: #142d4a;
+      --border: #e0ddd6;
+      --border-light: #eae8e2;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+      --radius: 8px;
+      --nav-bg: rgba(250,250,248,0.92);
+      --tag-bg: #eae8e2;
+      --tag-text: #4a4a5a;
+      --code-bg: #f4f3ef;
+      --code-border: #e0ddd6;
+      --inline-code-bg: #eeedea;
+      --font: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f0f14;
+      --bg-secondary: #1a1a22;
+      --bg-card: #1e1e28;
+      --text-primary: #e8e6e0;
+      --text-secondary: #a0a0ae;
+      --text-tertiary: #6a6a7a;
+      --accent: #7ca8d4;
+      --accent-light: #1a2a3e;
+      --accent-hover: #a0c4e8;
+      --border: #2a2a34;
+      --border-light: #22222c;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+      --nav-bg: rgba(15,15,20,0.92);
+      --tag-bg: #2a2a34;
+      --tag-text: #a0a0ae;
+      --code-bg: #16161e;
+      --code-border: #2a2a34;
+      --inline-code-bg: #252530;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      transition: background 0.3s, color 0.3s;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-hover); text-decoration: underline; }
+    ::selection { background: var(--accent-light); color: var(--accent); }
+
+    /* ========== Navigation ========== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      text-decoration: none;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 34px; height: 34px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      margin-left: 8px;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text-primary);
+      border-color: var(--text-tertiary);
+      background: var(--bg-secondary);
+    }
+
+    .theme-toggle svg { width: 16px; height: 16px; }
+
+    /* ========== Article Layout ========== */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .post-header {
+      padding-top: 100px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .post-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+
+    .post-back:hover { color: var(--accent); text-decoration: none; }
+    .post-back svg { width: 14px; height: 14px; }
+
+    .post-meta-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .post-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .post-category {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 2px 10px;
+      border-radius: 4px;
+    }
+
+    .post-page-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .post-tags-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .post-tag {
+      font-size: 11px;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    /* ========== Article Content — Markdown Styles ========== */
+    .article {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--text-primary);
+    }
+
+    .article h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 48px 0 16px;
+      line-height: 1.3;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article h1:first-child {
+      display: none; /* hide duplicate title from markdown */
+    }
+
+    .article h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 40px 0 14px;
+      line-height: 1.35;
+    }
+
+    .article h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 32px 0 10px;
+      line-height: 1.4;
+    }
+
+    .article h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 24px 0 8px;
+    }
+
+    .article p {
+      margin: 0 0 18px;
+    }
+
+    .article strong { font-weight: 600; }
+
+    .article a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.15s;
+    }
+
+    .article a:hover {
+      text-decoration-color: var(--accent);
+    }
+
+    /* Lists */
+    .article ul, .article ol {
+      margin: 0 0 18px;
+      padding-left: 24px;
+    }
+
+    .article li {
+      margin-bottom: 6px;
+      line-height: 1.7;
+    }
+
+    .article li > ul, .article li > ol {
+      margin-top: 6px;
+      margin-bottom: 0;
+    }
+
+    /* Blockquote */
+    .article blockquote {
+      margin: 24px 0;
+      padding: 14px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--bg-secondary);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    .article blockquote p:last-child { margin-bottom: 0; }
+
+    /* Horizontal Rule */
+    .article hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* Images */
+    .article img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    /* Tables */
+    .article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+
+    .article thead {
+      border-bottom: 2px solid var(--border);
+    }
+
+    .article th {
+      text-align: left;
+      font-weight: 600;
+      padding: 10px 14px;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+    }
+
+    .article th:first-child { border-radius: var(--radius) 0 0 0; }
+    .article th:last-child { border-radius: 0 var(--radius) 0 0; }
+
+    .article td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+    }
+
+    .article tr:last-child td { border-bottom: none; }
+
+    .article tr:hover td {
+      background: var(--bg-secondary);
+    }
+
+    /* Inline Code (only code NOT inside pre) */
+    .article :not(pre) > code {
+      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+      font-size: 0.88em;
+      background: var(--inline-code-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      word-break: break-word;
+    }
+
+    /* Code Blocks */
+    .article pre {
+      margin: 24px 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--code-border);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .article pre code {
+      display: block;
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+      font-size: 13.5px;
+      line-height: 1.65;
+      border-radius: 0;
+      -webkit-overflow-scrolling: touch;
+      /* let highlight.js theme control background & colors */
+      background: none;
+    }
+
+    /* highlight.js theme background override for our container */
+    .article pre code.hljs {
+      background: var(--code-bg);
+      padding: 20px 24px;
+    }
+
+    /* Code block language label */
+    .article pre[data-lang]::before {
+      content: attr(data-lang);
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      background: var(--bg-secondary);
+      padding: 4px 10px;
+      border-radius: 0 var(--radius) 0 6px;
+      border-left: 1px solid var(--code-border);
+      border-bottom: 1px solid var(--code-border);
+    }
+
+    /* Copy button on code blocks */
+    .code-copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--code-border);
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      opacity: 0;
+      transition: opacity 0.15s, color 0.15s;
+    }
+
+    .article pre:hover .code-copy-btn { opacity: 1; }
+    .code-copy-btn:hover { color: var(--text-primary); }
+    .code-copy-btn.copied { color: var(--accent); }
+
+    /* KaTeX overrides */
+    .katex-display {
+      margin: 24px 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 8px 0;
+    }
+
+    .katex { font-size: 1.05em; }
+
+    /* ========== Footer ========== */
+    .post-footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .post-footer-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .post-footer-back:hover { text-decoration: none; }
+    .post-footer-back svg { width: 14px; height: 14px; }
+
+    footer {
+      padding: 32px 0;
+      margin-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-align: center;
+    }
+
+    /* ========== Loading ========== */
+    .loading {
+      padding: 120px 0;
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    .loading-spinner {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ========== Error ========== */
+    .error-state {
+      padding: 120px 0;
+      text-align: center;
+    }
+
+    .error-state h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .error-state p {
+      color: var(--text-tertiary);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .error-state a {
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ========== Mobile Nav ========== */
+    .nav-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-primary);
+      padding: 4px;
+    }
+
+    .nav-menu-btn svg { width: 22px; height: 22px; }
+
+    @media (max-width: 768px) {
+      .nav-links a.nav-section-link { display: none; }
+      .nav-menu-btn { display: flex; }
+
+      .nav-links.open a.nav-section-link { display: block; }
+      .nav-links.open {
+        position: fixed;
+        top: 56px; left: 0; right: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 8px 24px 16px;
+        gap: 0;
+      }
+
+      .nav-links.open a.nav-section-link {
+        display: block;
+        padding: 10px 0;
+        font-size: 15px;
+      }
+
+      .post-header { padding-top: 80px; }
+      .post-page-title { font-size: 24px; }
+      .article h1 { font-size: 22px; }
+      .article h2 { font-size: 19px; }
+      .article pre code { font-size: 12.5px; padding: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Juneyoung Park</a>
+      <div class="nav-links" id="navLinks">
+        <a href="/" class="nav-section-link">Home</a>
+        <a href="/blog/" class="nav-section-link active">Blog</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+          <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+        </button>
+        <button class="nav-menu-btn" id="navMenuBtn" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div id="content">
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        Loading post...
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Juneyoung Park. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // ===== Theme =====
+    var html = document.documentElement;
+    var sunIcon = document.getElementById('sunIcon');
+    var moonIcon = document.getElementById('moonIcon');
+    var hljsLight = document.getElementById('hljs-light');
+    var hljsDark = document.getElementById('hljs-dark');
+
+    function setTheme(t) {
+      html.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+      var isDark = t === 'dark';
+      sunIcon.style.display = isDark ? 'block' : 'none';
+      moonIcon.style.display = isDark ? 'none' : 'block';
+      hljsLight.disabled = isDark;
+      hljsDark.disabled = !isDark;
+    }
+
+    var saved = localStorage.getItem('theme');
+    if (saved) setTheme(saved);
+    else if (window.matchMedia('(prefers-color-scheme:dark)').matches) setTheme('dark');
+
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    // ===== Mobile menu =====
+    document.getElementById('navMenuBtn').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.querySelectorAll('#navLinks .nav-section-link').forEach(function(l) {
+      l.addEventListener('click', function() { document.getElementById('navLinks').classList.remove('open'); });
+    });
+
+    // ===== Parse Frontmatter =====
+    function parseFrontmatter(text) {
+      var match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (!match) return { meta: {}, body: text };
+
+      var meta = {};
+      match[1].split('\n').forEach(function(line) {
+        var idx = line.indexOf(':');
+        if (idx === -1) return;
+        var key = line.slice(0, idx).trim();
+        var val = line.slice(idx + 1).trim();
+        // Remove quotes
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        // Parse array
+        if (val.startsWith('[') && val.endsWith(']')) {
+          val = val.slice(1, -1).split(',').map(function(s) {
+            s = s.trim();
+            if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+              s = s.slice(1, -1);
+            }
+            return s;
+          });
+        }
+        meta[key] = val;
+      });
+
+      return { meta: meta, body: match[2] };
+    }
+
+    // ===== Protect math from marked.js =====
+    // Extract math blocks BEFORE markdown parsing, replace with placeholders,
+    // then restore AFTER parsing so KaTeX gets the raw LaTeX.
+    function protectMath(text) {
+      var placeholders = [];
+      var idx = 0;
+
+      // Split by fenced code blocks — only extract math from non-code parts
+      // Code blocks stay intact so marked.js can convert them to <pre><code>
+      var parts = text.split(/(```[\s\S]*?```)/g);
+
+      for (var i = 0; i < parts.length; i++) {
+        // Odd indices are code blocks — leave them for marked to process
+        if (i % 2 === 1) continue;
+
+        // Even indices are regular text — extract math into placeholders
+        // 1) Display math $$...$$ (can be multiline)
+        parts[i] = parts[i].replace(/\$\$([\s\S]*?)\$\$/g, function(m, inner) {
+          var ph = '\x00MATH' + idx + '\x00';
+          placeholders.push({ ph: ph, val: '$$' + inner + '$$' });
+          idx++;
+          return ph;
+        });
+
+        // 2) Inline math $...$ (not empty, not starting/ending with space)
+        parts[i] = parts[i].replace(/(?<!\$)\$(?!\$)(\S[\s\S]*?\S|\S)\$(?!\$)/g, function(m, inner) {
+          var ph = '\x00MATH' + idx + '\x00';
+          placeholders.push({ ph: ph, val: '$' + inner + '$' });
+          idx++;
+          return ph;
+        });
+      }
+
+      return { text: parts.join(''), placeholders: placeholders };
+    }
+
+    function restoreMath(html, placeholders) {
+      placeholders.forEach(function(p) {
+        html = html.split(p.ph).join(p.val);
+      });
+      return html;
+    }
+
+    var KATEX_OPTS = {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false
+    };
+
+    function renderKaTeX(el) {
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(el, KATEX_OPTS);
+      }
+    }
+
+    // ===== Load Post =====
+    var slug = new URLSearchParams(window.location.search).get('slug');
+    var contentEl = document.getElementById('content');
+
+    if (!slug) {
+      contentEl.innerHTML = '<div class="error-state"><h2>Post not found</h2><p>No post slug specified.</p><a href="/blog/">&larr; Back to Blog</a></div>';
+    } else {
+      fetch('/blog/posts/' + slug + '.md')
+        .then(function(res) {
+          if (!res.ok) throw new Error('Not found');
+          return res.text();
+        })
+        .then(function(text) {
+          var parsed = parseFrontmatter(text);
+          var meta = parsed.meta;
+          var body = parsed.body;
+
+          // Update page title
+          if (meta.title) document.title = meta.title + ' — Juneyoung Park';
+
+          // 1) Protect math from marked
+          var protected_ = protectMath(body);
+
+          // 2) Configure marked (no highlight — we do it manually after DOM insert)
+          marked.setOptions({ breaks: false, gfm: true });
+
+          // 3) Parse markdown
+          var htmlContent = marked.parse(protected_.text);
+
+          // 4) Restore math placeholders
+          htmlContent = restoreMath(htmlContent, protected_.placeholders);
+
+          // Build header
+          var dateStr = meta.date ? new Date(meta.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+          var tags = Array.isArray(meta.tags) ? meta.tags : [];
+
+          contentEl.innerHTML =
+            '<div class="post-header">' +
+              '<a href="/blog/" class="post-back"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg> Back to Blog</a>' +
+              '<div class="post-meta-bar">' +
+                (dateStr ? '<span class="post-date">' + dateStr + '</span>' : '') +
+                (meta.category ? '<span class="post-category">' + meta.category + '</span>' : '') +
+              '</div>' +
+              '<h1 class="post-page-title">' + (meta.title || slug) + '</h1>' +
+              (tags.length ? '<div class="post-tags-bar">' + tags.map(function(t) { return '<span class="post-tag">' + t + '</span>'; }).join('') + '</div>' : '') +
+            '</div>' +
+            '<div class="article">' + htmlContent + '</div>' +
+            '<div class="post-footer">' +
+              '<a href="/blog/" class="post-footer-back"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg> Back to Blog</a>' +
+            '</div>';
+
+          // 5) Syntax highlight code blocks (after DOM insertion)
+          contentEl.querySelectorAll('pre code').forEach(function(codeEl) {
+            // Apply highlight.js
+            hljs.highlightElement(codeEl);
+
+            var pre = codeEl.parentElement;
+            var cls = codeEl.className || '';
+            var langMatch = cls.match(/language-(\w+)/);
+            if (langMatch) {
+              pre.setAttribute('data-lang', langMatch[1]);
+            }
+
+            // Copy button
+            var copyBtn = document.createElement('button');
+            copyBtn.className = 'code-copy-btn';
+            copyBtn.textContent = 'Copy';
+            copyBtn.addEventListener('click', function() {
+              navigator.clipboard.writeText(codeEl.textContent).then(function() {
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                setTimeout(function() {
+                  copyBtn.textContent = 'Copy';
+                  copyBtn.classList.remove('copied');
+                }, 2000);
+              });
+            });
+            pre.style.position = 'relative';
+            pre.appendChild(copyBtn);
+          });
+
+          // 6) Render KaTeX math
+          renderKaTeX(contentEl);
+        })
+        .catch(function() {
+          contentEl.innerHTML = '<div class="error-state"><h2>Post not found</h2><p>The post "' + slug + '" could not be loaded.</p><a href="/blog/">&larr; Back to Blog</a></div>';
+        });
+    }
+
+    // Retry KaTeX when deferred scripts finish loading
+    window.addEventListener('load', function() {
+      var article = document.querySelector('.article');
+      if (article) renderKaTeX(article);
+    });
+  </script>
+</body>
+</html>

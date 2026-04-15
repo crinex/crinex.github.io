@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juneyoung Park</title>
+  <meta name="description" content="Personal homepage of Juneyoung Park — AI Researcher, Gen.AI Team Lead at OptAI Inc.">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    /* ========== CSS Reset & Variables ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #fafaf8;
+      --bg-secondary: #f2f1ed;
+      --bg-card: #ffffff;
+      --bg-accent: #f0eee8;
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a5a;
+      --text-tertiary: #8a8a9a;
+      --accent: #1e3a5f;
+      --accent-light: #e8eef5;
+      --accent-hover: #142d4a;
+      --accent-warm: #8b4513;
+      --border: #e0ddd6;
+      --border-light: #eae8e2;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+      --radius: 8px;
+      --nav-bg: rgba(250,250,248,0.92);
+      --tag-bg: #eae8e2;
+      --tag-text: #4a4a5a;
+      --highlight-bg: #e8eef5;
+      --project-accent: #1e3a5f;
+      --project-accent-light: #e8eef5;
+      --project-badge-bg: #1e3a5f;
+      --project-badge-text: #ffffff;
+      --timeline-line: #d0cec6;
+      --timeline-dot: #1e3a5f;
+      --serif: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      --sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f0f14;
+      --bg-secondary: #1a1a22;
+      --bg-card: #1e1e28;
+      --bg-accent: #22222e;
+      --text-primary: #e8e6e0;
+      --text-secondary: #a0a0ae;
+      --text-tertiary: #6a6a7a;
+      --accent: #7ca8d4;
+      --accent-light: #1a2a3e;
+      --accent-hover: #a0c4e8;
+      --accent-warm: #c4855c;
+      --border: #2a2a34;
+      --border-light: #22222c;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.4);
+      --nav-bg: rgba(15,15,20,0.92);
+      --tag-bg: #2a2a34;
+      --tag-text: #a0a0ae;
+      --highlight-bg: #1a2a3e;
+      --project-accent: #7ca8d4;
+      --project-accent-light: #1a2a3e;
+      --project-badge-bg: #7ca8d4;
+      --project-badge-text: #0f0f14;
+      --timeline-line: #3a3a44;
+      --timeline-dot: #7ca8d4;
+    }
+
+    /* ========== Base ========== */
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      transition: background 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-hover); }
+
+    ::selection { background: var(--accent-light); color: var(--accent); }
+
+    /* ========== Navigation ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      margin-left: 8px;
+    }
+
+    .theme-toggle:hover {
+      color: var(--text-primary);
+      border-color: var(--text-tertiary);
+      background: var(--bg-secondary);
+    }
+
+    .theme-toggle svg { width: 16px; height: 16px; }
+
+    /* ========== Main Container ========== */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== Sections ========== */
+    section {
+      padding: 56px 0;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ========== Hero ========== */
+    .hero {
+      padding-top: 120px;
+      padding-bottom: 56px;
+    }
+
+    .hero-content {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .hero-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .hero-title {
+      font-size: 16px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .hero-title strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .hero-email {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      margin-bottom: 16px;
+    }
+
+    .hero-email a {
+      color: var(--text-tertiary);
+      transition: color 0.2s;
+    }
+
+    .hero-email a:hover { color: var(--accent); }
+
+    .hero-bio {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .hero-keywords {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .hero-keyword {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .hero-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .hero-link svg { width: 15px; height: 15px; }
+
+    /* ========== Publications ========== */
+    .pub-category {
+      margin-bottom: 36px;
+    }
+
+    .pub-category:last-child { margin-bottom: 0; }
+
+    .pub-category-title {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pub-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pub-dot.conference { background: var(--accent); }
+    .pub-dot.journal { background: #7c5e3c; }
+    .pub-dot.preprint { background: var(--text-tertiary); }
+
+    [data-theme="dark"] .pub-dot.journal { background: #c4855c; }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pub-item {
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      transition: all 0.2s;
+    }
+
+    .pub-item:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+    }
+
+    .pub-item-title {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    .pub-item-title a {
+      color: var(--text-primary);
+      transition: color 0.2s;
+    }
+
+    .pub-item-title a:hover { color: var(--accent); }
+
+    .pub-authors {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .pub-authors .me {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .pub-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pub-venue {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 4px;
+    }
+
+    .pub-venue.emnlp  { color: #0d6e63; background: #ddf5f0; }
+    .pub-venue.aaai   { color: #1e3a5f; background: #e0ecf5; }
+    .pub-venue.ipta   { color: #8b4513; background: #f5ebe0; }
+    .pub-venue.jcsm   { color: #5c3d7c; background: #ede5f5; }
+    .pub-venue.arxiv  { color: #5a5a6a; background: #eae8e2; }
+
+    [data-theme="dark"] .pub-venue.emnlp  { color: #6dd5c4; background: #0f332e; }
+    [data-theme="dark"] .pub-venue.aaai   { color: #7ca8d4; background: #1a2a3e; }
+    [data-theme="dark"] .pub-venue.ipta   { color: #c4855c; background: #2e1a0a; }
+    [data-theme="dark"] .pub-venue.jcsm   { color: #b494d4; background: #241a32; }
+    [data-theme="dark"] .pub-venue.arxiv  { color: #8a8a9a; background: #22222c; }
+
+    .pub-tag {
+      font-size: 12px;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 2px 10px;
+      border-radius: 4px;
+    }
+
+    .pub-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-left: auto;
+      cursor: pointer;
+    }
+
+    .pub-link svg { width: 12px; height: 12px; }
+
+    /* ========== News ========== */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .news-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+      align-items: baseline;
+    }
+
+    .news-item:last-child { border-bottom: none; }
+
+    .news-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      min-width: 90px;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    .news-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .news-text a { font-weight: 500; }
+
+    .award-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ========== Industry Projects — Featured ========== */
+    .projects-intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 16px;
+    }
+
+    .projects-intro .section-title {
+      margin-bottom: 0;
+    }
+
+    .projects-stats {
+      display: flex;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+
+    .projects-stat {
+      text-align: center;
+    }
+
+    .projects-stat-num {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .projects-stat-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    .project-timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .project-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 24px;
+      bottom: 24px;
+      width: 2px;
+      background: var(--timeline-line);
+    }
+
+    .project-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 20px;
+      padding: 24px 0;
+    }
+
+    .project-card + .project-card {
+      border-top: 1px solid var(--border-light);
+    }
+
+    .project-dot-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 4px;
+    }
+
+    .project-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--timeline-dot);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--timeline-dot);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .project-card-body {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .project-card-body:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .project-period {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.03em;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 6px;
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    .project-client-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--project-badge-text);
+      background: var(--project-badge-bg);
+      padding: 3px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .project-desc-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .project-tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 3px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.02em;
+    }
+
+    .project-open-btn {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-open-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .project-open-btn svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* ========== Project Modal ========== */
+    .project-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 15, 0.55);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .project-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .project-modal {
+      width: min(960px, 100%);
+      max-height: 86vh;
+      overflow: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      padding: 28px;
+      transform: translateY(8px) scale(0.985);
+      transition: transform 0.2s ease;
+    }
+
+    .project-modal-backdrop.open .project-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .project-modal-close {
+      float: right;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .project-modal-close:hover {
+      background: var(--bg-secondary);
+    }
+
+    .project-modal-title {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-top: 8px;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .project-modal-period {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .project-modal-client {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .project-page {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .project-modal-overview {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .project-media-hero {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
+    .project-section {
+      border-top: 1px dashed var(--border);
+      padding-top: 14px;
+    }
+
+    .project-section h4 {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .project-gallery-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .project-gallery-strip img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
+    .project-link-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .project-link-list li {
+      padding: 0;
+      margin: 0;
+    }
+
+    .project-link-list li::before {
+      display: none;
+    }
+
+    .project-link-list a {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      display: inline-block;
+      background: var(--bg);
+      cursor: pointer;
+    }
+
+    .project-desc {
+      list-style: none;
+      padding: 0;
+    }
+
+    .project-desc li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 5px;
+    }
+
+    .project-desc li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--text-tertiary);
+    }
+
+    /* ========== Open Source ========== */
+    .oss-card {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-card);
+      transition: all 0.2s;
+    }
+
+    .oss-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+    }
+
+    .oss-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .oss-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .oss-name a { color: var(--text-primary); }
+    .oss-name a:hover { color: var(--accent); }
+
+    .oss-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .oss-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .oss-badge:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .oss-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    /* ========== Professional Service ========== */
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .service-role {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .service-detail {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ========== Contact ========== */
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-info p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .contact-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .contact-link svg { width: 16px; height: 16px; }
+
+    /* ========== Footer ========== */
+    footer {
+      padding: 32px 0;
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-align: center;
+    }
+
+    /* ========== Mobile Nav Toggle ========== */
+    .nav-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-primary);
+      padding: 4px;
+    }
+
+    .nav-menu-btn svg { width: 22px; height: 22px; }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 768px) {
+      .project-gallery-strip { grid-template-columns: 1fr; }
+
+      .hero { padding-top: 96px; }
+
+      .hero-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 24px;
+      }
+
+      .hero-photo { width: 120px; height: 120px; }
+      .hero-name { font-size: 28px; }
+      .hero-title { font-size: 15px; }
+      .hero-keywords { justify-content: center; }
+      .hero-links { justify-content: center; }
+
+      .nav-links a.nav-section-link { display: none; }
+
+      .nav-menu-btn { display: flex; }
+
+      .nav-links.open a.nav-section-link {
+        display: block;
+      }
+
+      .nav-links.open {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 8px 24px 16px;
+        gap: 0;
+      }
+
+      .nav-links.open a.nav-section-link {
+        display: block;
+        padding: 10px 0;
+        font-size: 15px;
+      }
+
+      .contact-links { flex-direction: column; }
+      .contact-link { justify-content: center; }
+
+      .pub-meta { flex-wrap: wrap; }
+      .pub-link { margin-left: 0; }
+
+      .news-item { flex-direction: column; gap: 4px; }
+      .award-item { flex-direction: column; gap: 4px; }
+
+      section { padding: 40px 0; }
+
+      .project-timeline::before { left: 15px; }
+
+      .project-card {
+        grid-template-columns: 32px 1fr;
+        gap: 14px;
+      }
+
+      .project-card-header {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .projects-intro {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .projects-stats {
+        gap: 16px;
+      }
+
+      .oss-header { flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-name { font-size: 26px; }
+      .hero-links { gap: 6px; }
+      .hero-link { font-size: 12px; padding: 6px 10px; }
+      .container { padding: 0 16px; }
+    }
+
+    /* ========== Print ========== */
+    @media print {
+      nav, .theme-toggle, .nav-menu-btn { display: none; }
+      .hero { padding-top: 24px; }
+      section { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Juneyoung Park</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about" class="nav-section-link">About</a>
+        <a href="#news" class="nav-section-link">News</a>
+        <a href="#publications" class="nav-section-link">Publications</a>
+        <a href="#projects" class="nav-section-link">Industry</a>
+        <a href="#opensource" class="nav-section-link">Open Source</a>
+        <a href="#contact" class="nav-section-link">Contact</a>
+        <a href="/blog/" class="nav-section-link">Blog</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+          <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+        </button>
+        <button class="nav-menu-btn" id="navMenuBtn" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero / About -->
+    <section class="hero" id="about">
+      <div class="hero-content">
+        <img src="./assets/jyoung_profile.png" alt="Juneyoung Park" class="hero-photo">
+        <div class="hero-text">
+          <h1 class="hero-name">Juneyoung Park</h1>
+          <p class="hero-title"><strong>Gen.AI Team Lead</strong> at OptAI Inc.</p>
+          <p class="hero-email"><a href="mailto:crinexk@gmail.com">crinexk@gmail.com</a></p>
+          <p class="hero-bio">
+            I received my Master's degree in Convergence Healthcare Medicine from
+            Ajou University School of Medicine, advised by
+            <a href="#">Prof. Tae-Joon Kim</a>.
+            My research focuses on developing efficient and robust machine learning methods,
+            with particular interests in Riemannian optimization, meta-learning, and medical AI.
+          </p>
+          <div class="hero-keywords">
+            <span class="hero-keyword">On-Device LLM</span>
+            <span class="hero-keyword">Quantization</span>
+            <span class="hero-keyword">Efficient LLM</span>
+            <span class="hero-keyword">Agentic AI</span>
+          </div>
+          <div class="hero-links">
+            <a href="https://nimbo-code.github.io/nimbo/" target="_blank" rel="noopener noreferrer" class="hero-link">
+              <img src="./assets/nimbo_play.png" alt="Nimbo" style="width: 15px; height: 15px; object-fit: contain;">
+              Nimbo
+            </a>
+            <a href="https://scholar.google.com/citations?user=eupkJbQAAAAJ&hl=en&authuser=1" target="_blank" rel="noopener noreferrer" class="hero-link">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+              Google Scholar
+            </a>
+            <a href="https://github.com/crinex" target="_blank" rel="noopener noreferrer" class="hero-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/park-june-young-a340bb180/" target="_blank" rel="noopener noreferrer" class="hero-link">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+            <a href="/cv.pdf" class="hero-link" download>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+              CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- News -->
+    <section id="news">
+      <h2 class="section-title">News</h2>
+      <p class="section-subtitle">Recent updates and announcements</p>
+      <div class="news-list" id="news-container"></div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Publications -->
+    <section id="publications">
+      <h2 class="section-title">Selected Publications</h2>
+      <p class="section-subtitle">Peer-reviewed papers and preprints</p>
+
+      <div id="publications-container"></div>
+
+      <p style="text-align: center; margin-top: 24px;">
+        <a href="https://scholar.google.com/citations?user=CvvfGxkAAAAJ&hl=ko&authuser=3" target="_blank" rel="noopener noreferrer" class="hero-link" style="display: inline-flex;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+          View all on Google Scholar
+        </a>
+      </p>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Industry Projects -->
+    <section id="projects">
+      <div class="projects-intro">
+        <div>
+          <h2 class="section-title">Industry Projects</h2>
+          <p class="section-subtitle" style="margin-bottom: 0;">Applied research and production deployments</p>
+        </div>
+        <div class="projects-stats" id="projects-stats"></div>
+      </div>
+      <div class="project-timeline" id="projects-container"></div>
+    </section>
+    <div class="project-modal-backdrop" id="projectModalBackdrop" aria-hidden="true">
+      <div class="project-modal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+        <button class="project-modal-close" id="projectModalClose" aria-label="Close">&#x2715;</button>
+        <p class="project-modal-period" id="projectModalPeriod"></p>
+        <h3 class="project-modal-title" id="projectModalTitle"></h3>
+        <p class="project-modal-client" id="projectModalClient"></p>
+        <div class="project-page">
+          <img class="project-media-hero" id="projectModalHero" alt="Project cover image">
+          <p class="project-modal-overview" id="projectModalOverview"></p>
+
+          <section class="project-section">
+            <h4>Context</h4>
+            <ul class="project-desc" id="projectModalContext"></ul>
+          </section>
+
+          <section class="project-section">
+            <h4>Role & Scope</h4>
+            <ul class="project-desc" id="projectModalRole"></ul>
+          </section>
+
+          <section class="project-section">
+            <h4>Approach</h4>
+            <ul class="project-desc" id="projectModalApproach"></ul>
+          </section>
+
+          <section class="project-section">
+            <h4>Challenges & Decisions</h4>
+            <ul class="project-desc" id="projectModalChallenges"></ul>
+          </section>
+
+          <section class="project-section">
+            <h4>Outcomes & Metrics</h4>
+            <ul class="project-desc" id="projectModalMetrics"></ul>
+          </section>
+
+          <section class="project-section">
+            <h4>Gallery</h4>
+            <div class="project-gallery-strip" id="projectModalGallery"></div>
+          </section>
+
+          <section class="project-section">
+            <h4>Links</h4>
+            <ul class="project-link-list" id="projectModalLinks"></ul>
+          </section>
+
+          <section class="project-section">
+            <h4>Next Iteration</h4>
+            <ul class="project-desc" id="projectModalNextSteps"></ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- Open Source -->
+    <section id="opensource">
+      <h2 class="section-title">Open Source</h2>
+      <p class="section-subtitle">Tools and frameworks for the community</p>
+      <div id="opensource-container"></div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Invited Talks -->
+    <section id="talks">
+      <h2 class="section-title">Invited Talks & Presentations</h2>
+      <p class="section-subtitle">Conference presentations and guest lectures</p>
+      <div class="news-list" id="talks-container"></div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Professional Service -->
+    <section id="service">
+      <h2 class="section-title">Professional Service</h2>
+      <p class="section-subtitle">Academic reviewing and mentorship</p>
+      <div class="service-list" id="service-container"></div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-subtitle">Reach out for collaboration or inquiries</p>
+      <div class="contact-info">
+        <p>
+          I am always open to discussing new ideas, potential collaborations, or research opportunities.
+          Feel free to reach out via email or connect through social platforms.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:crinexk@gmail.com" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+            crinexk@gmail.com
+          </a>
+          <a href="https://github.com/crinex" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://scholar.google.com/citations?user=CvvfGxkAAAAJ&hl=ko&authuser=3" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>
+            Google Scholar
+          </a>
+          <a href="https://www.linkedin.com/in/park-june-young-a340bb180/" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 Juneyoung Park. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Theme Toggle
+    const toggle = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const html = document.documentElement;
+    const projectModalBackdrop = document.getElementById('projectModalBackdrop');
+    const projectModalClose = document.getElementById('projectModalClose');
+    const projectModalPeriod = document.getElementById('projectModalPeriod');
+    const projectModalTitle = document.getElementById('projectModalTitle');
+    const projectModalClient = document.getElementById('projectModalClient');
+    const projectModalHero = document.getElementById('projectModalHero');
+    const projectModalOverview = document.getElementById('projectModalOverview');
+    const projectModalContext = document.getElementById('projectModalContext');
+    const projectModalRole = document.getElementById('projectModalRole');
+    const projectModalApproach = document.getElementById('projectModalApproach');
+    const projectModalChallenges = document.getElementById('projectModalChallenges');
+    const projectModalMetrics = document.getElementById('projectModalMetrics');
+    const projectModalGallery = document.getElementById('projectModalGallery');
+    const projectModalLinks = document.getElementById('projectModalLinks');
+    const projectModalNextSteps = document.getElementById('projectModalNextSteps');
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (theme === 'dark') {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    }
+
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      setTheme(saved);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('navMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('.nav-section-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ========== Utility ==========
+    const PAPER_ICON = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>';
+    const GITHUB_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>';
+    const ARROW_ICON = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>';
+
+    function bold(text) {
+      return text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    }
+
+    function formatAuthors(authors) {
+      return authors.map(a => {
+        if (a.endsWith('*')) {
+          return '<span class="me">' + a.slice(0, -1) + '</span>';
+        }
+        return a;
+      }).join(', ');
+    }
+
+    // ========== Render: News ==========
+    function renderNews(data) {
+      const el = document.getElementById('news-container');
+      el.innerHTML = data.map(item =>
+        '<div class="news-item">' +
+          '<span class="news-date">' + item.date + '</span>' +
+          '<span class="news-text">' + bold(item.text) + '</span>' +
+        '</div>'
+      ).join('');
+    }
+
+    // ========== Render: Publications ==========
+    function renderPublications(data) {
+      const el = document.getElementById('publications-container');
+      el.innerHTML = data.categories.map(cat =>
+        '<div class="pub-category">' +
+          '<p class="pub-category-title"><span class="pub-dot ' + cat.type + '"></span> ' + cat.name + '</p>' +
+          '<div class="pub-list">' +
+            cat.items.map(item =>
+              '<div class="pub-item">' +
+                '<p class="pub-item-title"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer">' + item.title + '</a></p>' +
+                '<p class="pub-authors">' + formatAuthors(item.authors) + '</p>' +
+                '<div class="pub-meta">' +
+                  '<span class="pub-venue ' + item.venueClass + '">' + item.venue + '</span>' +
+                  item.tags.map(t => '<span class="pub-tag">' + t + '</span>').join('') +
+                  '<a href="' + item.url + '" target="_blank" rel="noopener noreferrer" class="pub-link">Paper ' + PAPER_ICON + '</a>' +
+                '</div>' +
+              '</div>'
+            ).join('') +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    // ========== Render: Projects ==========
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function renderList(target, items, fallbackItems) {
+      const data = Array.isArray(items) && items.length ? items : fallbackItems;
+      target.innerHTML = data.map(item => '<li>' + escapeHtml(item) + '</li>').join('');
+    }
+
+    function renderLinks(target, links) {
+      const data = Array.isArray(links) && links.length ? links : [
+        { label: 'Add demo video link', url: '#' },
+        { label: 'Add architecture/image link', url: '#' },
+        { label: 'Add release or PR link', url: '#' }
+      ];
+
+      target.innerHTML = data.map(link => {
+        const label = escapeHtml(link.label || 'Project Link');
+        const url = escapeHtml(link.url || '#');
+        return '<li><a href="' + url + '" target="_blank" rel="noopener noreferrer">' + label + '</a></li>';
+      }).join('');
+    }
+
+    function renderProjectImages(hero, gallery) {
+      const heroSrc = hero || './assets/jyoung_profile.png';
+      projectModalHero.src = heroSrc;
+
+      const images = Array.isArray(gallery) && gallery.length ? gallery : [
+        './assets/jyoung_profile.png',
+        './assets/jyoung_profile.png',
+        './assets/jyoung_profile.png'
+      ];
+
+      projectModalGallery.innerHTML = images.slice(0, 3).map((src, idx) =>
+        '<img src="' + escapeHtml(src) + '" alt="Project gallery image ' + (idx + 1) + '">'
+      ).join('');
+    }
+
+    function openProjectModal(project) {
+      projectModalPeriod.textContent = project.period;
+      projectModalTitle.textContent = project.title;
+      projectModalClient.textContent = 'Client: ' + project.client;
+      projectModalOverview.textContent = project.overview || 'Write a short executive summary: what problem this project solved, for whom, and what changed after deployment.';
+      renderProjectImages(project.heroImage, project.gallery);
+
+      renderList(projectModalContext, project.context, [
+        'Goal: Add one sentence defining the core business/technical goal.',
+        'Users: Add target users (internal teams, end users, customers).',
+        'Platform: Add target hardware/platform constraints.'
+      ]);
+
+      renderList(projectModalRole, project.roleScope, [
+        'Role: Clarify ownership (lead/research/implementation).',
+        'Scope: Specify model, pipeline, deployment boundaries.',
+        'Team: Mention collaboration with partner/client teams.'
+      ]);
+
+      renderList(projectModalApproach, project.approach, project.description || [
+        'Describe the main technical strategy and why it was selected.',
+        'Describe the architecture or pipeline changes.',
+        'Describe validation and quality assurance method.'
+      ]);
+
+      renderList(projectModalChallenges, project.challenges, [
+        'Constraint: What was hardest (memory/latency/quality/tooling).',
+        'Decision: What trade-off was made and why.',
+        'Risk Control: How regressions were prevented.'
+      ]);
+
+      renderList(projectModalMetrics, project.metrics, [
+        'Latency: Add baseline -> improved value.',
+        'Memory: Add baseline -> improved value.',
+        'Quality: Add benchmark/user metric delta.'
+      ]);
+
+      renderLinks(projectModalLinks, project.links);
+
+      renderList(projectModalNextSteps, project.nextSteps, [
+        'Add what you would do next to scale this project.',
+        'Add a version roadmap (e.g., v2 optimization plan).',
+        'Add operational plan (monitoring, retraining, rollout).'
+      ]);
+
+      projectModalBackdrop.classList.add('open');
+      projectModalBackdrop.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectModal() {
+      projectModalBackdrop.classList.remove('open');
+      projectModalBackdrop.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function extractTechTags(desc) {
+      var tags = [];
+      var text = desc.join(' ');
+      var keywords = [
+        ['ANE', 'Apple ANE'], ['CoreML', 'CoreML'], ['NPU', 'NPU'],
+        ['Quantization', 'Quantization'], ['INT8', 'INT8'], ['INT4', 'INT4'],
+        ['LoRA', 'LoRA'], ['ONNX', 'ONNX'], ['QNN', 'QNN'],
+        ['Pruning', 'Pruning'], ['Fine-tun', 'Fine-tuning'],
+        ['Tokenizer', 'Tokenizer'], ['Knowledge', 'Knowledge Grounding'],
+        ['Inference', 'Inference Engine'], ['KV-Cache', 'KV-Cache'],
+        ['JSON', 'Structured Output'], ['Snapdragon', 'Snapdragon'],
+        ['iOS', 'iOS'], ['Intel', 'Intel SoC']
+      ];
+      keywords.forEach(function(kw) {
+        if (text.indexOf(kw[0]) !== -1 && tags.indexOf(kw[1]) === -1) {
+          tags.push(kw[1]);
+        }
+      });
+      return tags.slice(0, 4);
+    }
+
+    function renderProjects(data) {
+      var el = document.getElementById('projects-container');
+
+      // Compute stats
+      var clients = [];
+      data.forEach(function(p) {
+        if (clients.indexOf(p.client) === -1) clients.push(p.client);
+      });
+      var statsEl = document.getElementById('projects-stats');
+      statsEl.innerHTML =
+        '<div class="projects-stat"><div class="projects-stat-num">' + data.length + '</div><div class="projects-stat-label">Projects</div></div>' +
+        '<div class="projects-stat"><div class="projects-stat-num">' + clients.length + '</div><div class="projects-stat-label">Clients</div></div>';
+
+      el.innerHTML = data.map(function(p, idx) {
+        var tags = extractTechTags(p.description || []);
+        var tagsHtml = tags.map(function(t) { return '<span class="project-tag">' + t + '</span>'; }).join('');
+        return '<div class="project-card">' +
+          '<div class="project-dot-col"><div class="project-dot"></div></div>' +
+          '<div class="project-card-body">' +
+            '<div class="project-card-header">' +
+              '<div>' +
+                '<p class="project-period">' + p.period + '</p>' +
+                '<h3 class="project-title">' + p.title + '</h3>' +
+              '</div>' +
+              '<span class="project-client-badge">' + p.client + '</span>' +
+            '</div>' +
+            '<p class="project-desc-text">' + (p.overview && p.overview.indexOf('Add') !== 0 ? p.overview : (p.description && p.description[0] || '')) + '</p>' +
+            (tagsHtml ? '<div class="project-tags">' + tagsHtml + '</div>' : '') +
+            '<button class="project-open-btn" data-project-index="' + idx + '">View Details ' + ARROW_ICON + '</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      document.querySelectorAll('.project-open-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+          var idx = Number(button.getAttribute('data-project-index'));
+          if (!Number.isNaN(idx) && data[idx]) {
+            openProjectModal(data[idx]);
+          }
+        });
+      });
+    }
+
+    // ========== Render: Open Source ==========
+    function renderOpenSource(data) {
+      const el = document.getElementById('opensource-container');
+      el.innerHTML = data.map(proj =>
+        '<div class="oss-card">' +
+          '<div class="oss-header">' +
+            '<div>' +
+              '<h3 class="oss-name">' +
+                '<span style="vertical-align: -3px; margin-right: 6px; opacity: 0.5;">' + GITHUB_ICON + '</span>' +
+                '<a href="' + proj.url + '" target="_blank" rel="noopener noreferrer">' + proj.name + '</a>' +
+              '</h3>' +
+              '<p class="oss-desc">' + proj.description + '</p>' +
+            '</div>' +
+            '<div style="display: flex; gap: 8px; flex-shrink: 0;">' +
+              proj.links.map(l => '<a href="' + l.url + '" target="_blank" rel="noopener noreferrer" class="oss-badge">' + l.label + '</a>').join('') +
+            '</div>' +
+          '</div>' +
+          '<ul class="project-desc" style="margin-top: 14px;">' +
+            proj.features.map(f => '<li>' + f + '</li>').join('') +
+          '</ul>' +
+          '<div class="oss-tags">' +
+            proj.tags.map(t => '<span class="pub-tag">' + t + '</span>').join('') +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    // ========== Render: Talks ==========
+    function renderTalks(data) {
+      const el = document.getElementById('talks-container');
+      el.innerHTML = data.map(t =>
+        '<div class="news-item">' +
+          '<span class="news-date">' + t.date + '</span>' +
+          '<span class="news-text"><strong>' + t.title + '</strong> — ' + t.venue + '</span>' +
+        '</div>'
+      ).join('');
+    }
+
+    // ========== Render: Service ==========
+    function renderService(data) {
+      const el = document.getElementById('service-container');
+      el.innerHTML = data.map(s =>
+        '<div class="service-group">' +
+          '<h3 class="service-role">' + s.role + '</h3>' +
+          '<p class="service-detail">' + s.details + '</p>' +
+        '</div>'
+      ).join('');
+    }
+
+    // ========== Load Data from JSON files ==========
+    Promise.all([
+      fetch('/data/news.json').then(r => r.json()),
+      fetch('/data/publications.json').then(r => r.json()),
+      fetch('/data/projects.json').then(r => r.json()),
+      fetch('/data/opensource.json').then(r => r.json()),
+      fetch('/data/talks.json').then(r => r.json()),
+      fetch('/data/service.json').then(r => r.json())
+    ]).then(([news, publications, projects, opensource, talks, service]) => {
+      renderNews(news);
+      renderPublications(publications);
+      renderProjects(projects);
+      renderOpenSource(opensource);
+      renderTalks(talks);
+      renderService(service);
+
+      // Re-observe sections for scroll reveal after content is loaded
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+      });
+
+      projectModalClose.addEventListener('click', closeProjectModal);
+      projectModalBackdrop.addEventListener('click', (e) => {
+        if (e.target === projectModalBackdrop) closeProjectModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && projectModalBackdrop.classList.contains('open')) {
+          closeProjectModal();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

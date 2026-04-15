@@ -1,0 +1,110 @@
+{
+  "categories": [
+    {
+      "name": "International Conference",
+      "type": "conference",
+      "items": [
+        {
+          "title": "Riemannian Optimization for LoRA on the Stiefel Manifold",
+          "url": "https://aclanthology.org/anthology-files/pdf/findings/2025.findings-emnlp.1143.pdf",
+          "authors": ["Juneyoung Park*", "Minjae Kang", "Seongbae Lee", "Haegang Lee", "Seongwan Kim", "Jaeho Lee"],
+          "venue": "EMNLP 2025",
+          "venueClass": "emnlp",
+          "tags": ["Optimization", "LoRA"]
+        },
+        {
+          "title": "Riemannian Geometric-based Meta Learning",
+          "url": "https://ojs.aaai.org/index.php/AAAI/article/view/34185",
+          "authors": ["Juneyoung Park*", "YuMi Lee", "Tae-Joon Kim", "Jang-Hwan Choi"],
+          "venue": "AAAI 2025",
+          "venueClass": "aaai",
+          "tags": ["Meta Learning", "Riemannian Geometry"]
+        },
+        {
+          "title": "Skip-GANomaly++: Skip Connections and Residual Blocks for Anomaly Detection",
+          "url": "https://ojs.aaai.org/index.php/AAAI/article/view/30496",
+          "authors": ["Juneyoung Park*", "Jae-Ryung Hong", "Tae-Joon Kim"],
+          "venue": "AAAI 2024",
+          "venueClass": "aaai",
+          "tags": ["Anomaly Detection", "GAN"]
+        },
+        {
+          "title": "OSA-NET: An Efficient Convolutional Neural Network for OSA Diagnosis Screening Tool",
+          "url": "https://ieeexplore.ieee.org/abstract/document/10320072",
+          "authors": ["Juneyoung Park*", "Min-Hye Kim", "Tae-Joon Kim"],
+          "venue": "IPTA 2023",
+          "venueClass": "ipta",
+          "tags": ["Medical AI", "OSA Screening"]
+        }
+      ]
+    },
+    {
+      "name": "Journal",
+      "type": "journal",
+      "items": [
+        {
+          "title": "A Novel Machine Learning Model for Screening the Risk of Obstructive Sleep Apnea Using Craniofacial Photography with Questionnaires",
+          "url": "https://jcsm.aasm.org/doi/abs/10.5664/jcsm.11560",
+          "authors": ["Juneyoung Park*", "Hye-Rim Shin", "Min Hye Kim", "Yunsoo Kim", "Wi-Sun Ryu", "Eun Young Kim", "Hyeyeon Chang", "Woo-Jin Lee", "Jee Hyun Kim", "Tae-Joon Kim"],
+          "venue": "J. Clin. Sleep Med.",
+          "venueClass": "jcsm",
+          "tags": ["Sleep Medicine", "ML Screening"]
+        }
+      ]
+    },
+    {
+      "name": "Preprint",
+      "type": "preprint",
+      "items": [
+        {
+          "title": "Memory-Efficient Structured Backpropagation for On-Device LLM Fine-Tuning",
+          "url": "https://arxiv.org/pdf/2602.13069",
+          "authors": ["Juneyoung Park*", "Yuri Hong", "Seongwan Kim", "Jaeho Lee"],
+          "venue": "arXiv 2026",
+          "venueClass": "arxiv",
+          "tags": ["On-Device Training", "LLM", "LoRA"]
+        },
+        {
+          "title": "LCSB: Layer-Cyclic Selective Backpropagation for Memory-Efficient On-Device LLM Fine-Tuning",
+          "url": "https://arxiv.org/pdf/2602.13073",
+          "authors": ["Juneyoung Park*", "Eunbeen Yoon", "Seongwan Kim", "Jaeho Lee"],
+          "venue": "arXiv 2026",
+          "venueClass": "arxiv",
+          "tags": ["On-Device Training", "LLM", "LoRA"]
+        },
+        {
+          "title": "Efficient Language Model Fine-Tuning via Support Vector-based Core Data Selection",
+          "url": "https://arxiv.org/abs/2510.13870",
+          "authors": ["Juneyoung Park*", "Youngwook Kwon", "Seongwan Kim", "Jaeho Lee"],
+          "venue": "arXiv 2025",
+          "venueClass": "arxiv",
+          "tags": ["Coreset Selection", "LLM"]
+        },
+        {
+          "title": "Stop Before You Forget: The End of Catastrophic Forgetting in Few-Shot Continual Learning",
+          "url": "https://arxiv.org/abs/2510.13870",
+          "authors": ["Juneyoung Park*", "Seongbae Lee", "Seongwan Kim", "Jaeho Lee"],
+          "venue": "arXiv 2025",
+          "venueClass": "arxiv",
+          "tags": ["Continual Learning", "NTK"]
+        },
+        {
+          "title": "Robust Meta-Optimization with Kernel-based Adaptation and Task Similarity",
+          "url": "https://arxiv.org/abs/2411.00404",
+          "authors": ["Juneyoung Park*", "Minjae Kang", "Seongwan Kim", "Jaeho Lee"],
+          "venue": "arXiv 2024",
+          "venueClass": "arxiv",
+          "tags": ["Meta Learning", "Kernel Method"]
+        },
+        {
+          "title": "EB-GAME: A Game-Changer in ECG Heartbeat Anomaly Detection",
+          "url": "https://arxiv.org/abs/2404.15333",
+          "authors": ["Juneyoung Park*", "Da-Young Kim", "Yunsoo Kim", "Jisu Yoo", "Tae-Joon Kim"],
+          "venue": "arXiv 2024",
+          "venueClass": "arxiv",
+          "tags": ["ECG", "Anomaly Detection"]
+        }
+      ]
+    }
+  ]
+}
