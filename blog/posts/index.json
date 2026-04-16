@@ -2,17 +2,17 @@
   {
     "slug": "cybenko-universal-approximation",
     "title": "왜 뉴럴 네트워크는 모든 함수를 근사할 수 있을까?",
-    "date": "2026-04-14",
+    "date": "2026-04-04",
     "category": "Deep Learning Theory",
     "excerpt": "Cybenko (1989)의 Universal Approximation Theorem을 수식 없이, 그림으로 직관적으로 이해해봅니다.",
     "tags": ["Universal Approximation", "Cybenko", "Neural Networks", "Functional Analysis"]
   },
   {
-    "slug": "on-device-llm-landscape-2026",
-    "title": "On-Device LLM Landscape in 2026: What Changed",
-    "date": "2026-03-15",
-    "category": "On-Device AI",
-    "excerpt": "The on-device LLM ecosystem has evolved dramatically over the past two years. What once required cloud APIs and powerful GPUs now runs natively on smartphones.",
-    "tags": ["On-Device LLM", "NPU", "Industry"]
+    "slug": "why-deep-learning-theory",
+    "title": "딥러닝의 수학을 왜 공부해야 할까",
+    "date": "2026-03-21",
+    "category": "Deep Learning Theory",
+    "excerpt": "딥러닝을 도구로 쓰는 것과 이해하는 것은 다르다. 이 시리즈에서는 딥러닝 이론의 수학적 기초를 직관적으로 다룬다.",
+    "tags": ["Deep Learning", "Mathematics", "Theory", "Series Introduction"]
   }
 ]

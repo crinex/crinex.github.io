@@ -21,12 +21,14 @@
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/json.min.js"></script>
   <!-- Marked.js -->
   <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <!-- Plotly.js for interactive figures -->
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.27.0/plotly.min.js" defer></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #fafaf8;
-      --bg-secondary: #f2f1ed;
+      --bg: #ffffff;
+      --bg-secondary: #f7f8fa;
       --bg-card: #ffffff;
       --text-primary: #1a1a2e;
       --text-secondary: #4a4a5a;
@@ -41,9 +43,9 @@
       --nav-bg: rgba(250,250,248,0.92);
       --tag-bg: #eae8e2;
       --tag-text: #4a4a5a;
-      --code-bg: #f4f3ef;
-      --code-border: #e0ddd6;
-      --inline-code-bg: #eeedea;
+      --code-bg: #f6f8fb;
+      --code-border: #e2e8f0;
+      --inline-code-bg: #f3f6fa;
       --font: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
@@ -72,7 +74,7 @@
 
     body {
       font-family: var(--font);
-      background: var(--bg);
+      background: #ffffff !important;
       color: var(--text-primary);
       line-height: 1.7;
       transition: background 0.3s, color 0.3s;
@@ -88,10 +90,10 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: var(--nav-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
+      background: #ffffff !important;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: 1px solid #e8edf3;
       transition: background 0.3s;
     }
 
@@ -108,8 +110,9 @@
     .nav-logo {
       font-weight: 600;
       font-size: 17px;
-      color: var(--text-primary);
+      color: #1a1a2e;
       letter-spacing: -0.01em;
+      background: #ffffff;
     }
 
     .nav-links {
@@ -158,29 +161,126 @@
     }
 
     .theme-toggle svg { width: 16px; height: 16px; }
+    .theme-toggle { display: none; }
 
     /* ========== Article Layout ========== */
     .container {
-      max-width: 720px;
+      max-width: 1480px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
 
     .post-header {
-      padding-top: 100px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 40px;
+      max-width: 920px;
+      margin: 0 auto 44px;
+      padding-top: 118px;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .post-shell {
+      display: grid;
+      grid-template-columns: minmax(170px, 220px) minmax(760px, 920px) minmax(220px, 280px);
+      gap: clamp(20px, 2.4vw, 36px);
+      align-items: start;
+      justify-content: center;
+    }
+
+    .toc-column,
+    .notes-column {
+      position: sticky;
+      top: 84px;
+      align-self: start;
+      max-height: calc(100vh - 110px);
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .toc-title,
+    .notes-title {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #8b98ab;
+      margin-bottom: 10px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc-item a {
+      display: block;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #5b6a80;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      padding-left: 9px;
+    }
+
+    .toc-item.toc-h3 a {
+      font-size: 12px;
+      padding-left: 16px;
+      color: #708097;
+    }
+
+    .toc-item a:hover,
+    .toc-item.active a {
+      color: #1f3557;
+      border-left-color: #8ba8d4;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .note-item {
+      font-size: 12px;
+      line-height: 1.55;
+      color: #59697f;
+      background: #f8fafd;
+      border: 1px solid #e4eaf2;
+      border-radius: 10px;
+      padding: 10px 11px;
+    }
+
+    .note-item .note-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #edf2f9;
+      border: 1px solid #d8e1ed;
+      color: #2f4e77;
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 6px;
+      vertical-align: text-top;
     }
 
     .post-back {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--text-tertiary);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      letter-spacing: 0.01em;
       text-decoration: none;
     }
 
@@ -190,64 +290,89 @@
     .post-meta-bar {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 12px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
     }
 
     .post-date {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 500;
       color: var(--text-tertiary);
+      letter-spacing: 0.02em;
       font-variant-numeric: tabular-nums;
     }
 
     .post-category {
       font-size: 11px;
       font-weight: 600;
-      color: var(--accent);
-      background: var(--accent-light);
+      color: #2f3d57;
+      background: #f1f4f8;
+      border: 1px solid #d9e1ea;
       padding: 2px 10px;
-      border-radius: 4px;
+      border-radius: 999px;
     }
 
     .post-page-title {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.3;
-      margin-bottom: 12px;
+      font-size: 52px;
+      font-weight: 750;
+      letter-spacing: -0.038em;
+      line-height: 1.15;
+      margin-bottom: 18px;
     }
 
     .post-tags-bar {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .post-tag {
       font-size: 11px;
-      color: var(--tag-text);
-      background: var(--tag-bg);
-      padding: 3px 10px;
-      border-radius: 4px;
+      color: #4a5b73;
+      background: #f3f6fa;
+      border: 1px solid #dde5ef;
+      padding: 4px 10px;
+      border-radius: 999px;
     }
 
     /* ========== Article Content — Markdown Styles ========== */
     .article {
-      font-size: 16px;
-      line-height: 1.85;
+      max-width: 920px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.92;
       color: var(--text-primary);
+      background: #ffffff;
+    }
+
+    .note-ref {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      margin: 0 2px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background: #edf2f9;
+      border: 1px solid #d8e1ed;
+      color: #2f4e77;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+      text-decoration: none;
+      vertical-align: text-top;
     }
 
     .article h1 {
-      font-size: 28px;
-      font-weight: 700;
+      font-size: 40px;
+      font-weight: 760;
       letter-spacing: -0.02em;
-      margin: 48px 0 16px;
-      line-height: 1.3;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+      margin: 56px 0 20px;
+      line-height: 1.2;
+      padding-bottom: 0;
+      border-bottom: none;
     }
 
     .article h1:first-child {
@@ -255,17 +380,17 @@
     }
 
     .article h2 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 40px 0 14px;
+      font-size: 30px;
+      font-weight: 760;
+      letter-spacing: -0.026em;
+      margin: 50px 0 16px;
       line-height: 1.35;
     }
 
     .article h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin: 32px 0 10px;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 38px 0 12px;
       line-height: 1.4;
     }
 
@@ -276,7 +401,7 @@
     }
 
     .article p {
-      margin: 0 0 18px;
+      margin: 0 0 22px;
     }
 
     .article strong { font-weight: 600; }
@@ -295,8 +420,8 @@
 
     /* Lists */
     .article ul, .article ol {
-      margin: 0 0 18px;
-      padding-left: 24px;
+      margin: 0 0 22px;
+      padding-left: 28px;
     }
 
     .article li {
@@ -311,13 +436,13 @@
 
     /* Blockquote */
     .article blockquote {
-      margin: 24px 0;
-      padding: 14px 20px;
-      border-left: 3px solid var(--accent);
-      background: var(--bg-secondary);
-      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 30px 0;
+      padding: 18px 20px;
+      border-left: 2px solid #6f829f;
+      background: #f8fafc;
+      border-radius: 8px;
       color: var(--text-secondary);
-      font-size: 15px;
+      font-size: 16px;
     }
 
     .article blockquote p:last-child { margin-bottom: 0; }
@@ -325,17 +450,17 @@
     /* Horizontal Rule */
     .article hr {
       border: none;
-      border-top: 1px solid var(--border);
-      margin: 40px 0;
+      border-top: 1px solid #e7ebf0;
+      margin: 48px 0;
     }
 
     /* Images */
     .article img {
       max-width: 100%;
       height: auto;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      margin: 24px 0;
+      border-radius: 12px;
+      border: 1px solid #e4e9f0;
+      margin: 30px 0;
     }
 
     /* Tables */
@@ -376,20 +501,22 @@
     /* Inline Code (only code NOT inside pre) */
     .article :not(pre) > code {
       font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
-      font-size: 0.88em;
-      background: var(--inline-code-bg);
-      padding: 2px 6px;
-      border-radius: 4px;
+      font-size: 0.84em;
+      background: #f4f6f9;
+      border: 1px solid #e4e9f0;
+      padding: 2px 7px;
+      border-radius: 6px;
       word-break: break-word;
     }
 
     /* Code Blocks */
     .article pre {
-      margin: 24px 0;
-      border-radius: var(--radius);
-      border: 1px solid var(--code-border);
+      margin: 28px 0;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
       overflow: hidden;
       position: relative;
+      background: #f7f9fc;
     }
 
     .article pre code {
@@ -452,6 +579,60 @@
     .code-copy-btn:hover { color: var(--text-primary); }
     .code-copy-btn.copied { color: var(--accent); }
 
+    /* Interactive figure controls */
+    .fig-interactive {
+      margin: 28px 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--bg-card);
+    }
+
+    .fig-interactive .fig-plot {
+      width: 100%;
+      min-height: 340px;
+    }
+
+    .fig-controls {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 10px 16px;
+      border-top: 1px solid var(--border-light);
+      background: var(--bg-secondary);
+    }
+
+    .fig-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .fig-control input[type=range] {
+      width: 120px;
+      accent-color: var(--accent);
+    }
+
+    .fig-control .fig-val {
+      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      min-width: 32px;
+      text-align: right;
+    }
+
+    .fig-caption {
+      padding: 8px 16px 12px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      line-height: 1.5;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .fig-caption strong { color: var(--text-secondary); }
+
     /* KaTeX overrides */
     .katex-display {
       margin: 24px 0;
@@ -464,9 +645,10 @@
 
     /* ========== Footer ========== */
     .post-footer {
-      margin-top: 56px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
+      max-width: 760px;
+      margin: 62px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid #e7ebf0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -554,6 +736,31 @@
 
     .nav-menu-btn svg { width: 22px; height: 22px; }
 
+    @media (max-width: 1240px) {
+      .post-shell {
+        grid-template-columns: minmax(150px, 190px) minmax(0, 1fr) minmax(200px, 240px);
+        gap: 18px;
+      }
+
+      .post-header,
+      .article,
+      .post-footer {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .container { max-width: 980px; padding: 0 20px; }
+      .post-shell { display: block; }
+      .toc-column, .notes-column { position: static; max-height: none; margin-bottom: 18px; }
+      .post-header { max-width: 100%; padding-top: 84px; margin-bottom: 28px; }
+      .post-page-title { font-size: 38px; }
+      .article { max-width: 100%; font-size: 16px; line-height: 1.82; }
+      .article h1 { font-size: 22px; }
+      .article h2 { font-size: 19px; }
+      .article pre code { font-size: 12.5px; padding: 16px; }
+    }
+
     @media (max-width: 768px) {
       .nav-links a.nav-section-link { display: none; }
       .nav-menu-btn { display: flex; }
@@ -577,15 +784,15 @@
         font-size: 15px;
       }
 
-      .post-header { padding-top: 80px; }
-      .post-page-title { font-size: 24px; }
-      .article h1 { font-size: 22px; }
-      .article h2 { font-size: 19px; }
-      .article pre code { font-size: 12.5px; padding: 16px; }
+      .post-page-title { font-size: 34px; }
+      .article { font-size: 15.5px; line-height: 1.8; }
     }
 
     @media (max-width: 480px) {
       .container { padding: 0 16px; }
+      .post-page-title { font-size: 30px; }
+      .article h2 { font-size: 24px; }
+      .article h3 { font-size: 20px; }
     }
   </style>
 </head>
@@ -640,12 +847,11 @@
       hljsDark.disabled = !isDark;
     }
 
-    var saved = localStorage.getItem('theme');
-    if (saved) setTheme(saved);
-    else if (window.matchMedia('(prefers-color-scheme:dark)').matches) setTheme('dark');
+    // Force light theme for the editorial post layout.
+    setTheme('light');
 
     document.getElementById('themeToggle').addEventListener('click', function() {
-      setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      setTheme('light');
     });
 
     // ===== Mobile menu =====
@@ -703,17 +909,20 @@
         if (i % 2 === 1) continue;
 
         // Even indices are regular text — extract math into placeholders
+        // Use HTML comments as placeholders so marked.js inline parsing
+        // (bold, italic, links, etc.) is not disrupted by null bytes.
         // 1) Display math $$...$$ (can be multiline)
         parts[i] = parts[i].replace(/\$\$([\s\S]*?)\$\$/g, function(m, inner) {
-          var ph = '\x00MATH' + idx + '\x00';
+          var ph = '%%MATH' + idx + '%%';
           placeholders.push({ ph: ph, val: '$$' + inner + '$$' });
           idx++;
           return ph;
         });
 
         // 2) Inline math $...$ (not empty, not starting/ending with space)
-        parts[i] = parts[i].replace(/(?<!\$)\$(?!\$)(\S[\s\S]*?\S|\S)\$(?!\$)/g, function(m, inner) {
-          var ph = '\x00MATH' + idx + '\x00';
+        //    [^$]+? prevents matching across $ signs (fixes bold/blockquote being swallowed)
+        parts[i] = parts[i].replace(/(?<!\$)\$(?!\$|\s)([^$]+?)(?<!\s)\$(?!\$)/g, function(m, inner) {
+          var ph = '%%MATH' + idx + '%%';
           placeholders.push({ ph: ph, val: '$' + inner + '$' });
           idx++;
           return ph;
@@ -746,6 +955,100 @@
       }
     }
 
+    function escapeHtml(s) {
+      return String(s || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function slugify(text) {
+      return String(text || '')
+        .toLowerCase()
+        .replace(/<[^>]+>/g, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
+    }
+
+    function extractSidenotes(markdown) {
+      var lines = markdown.split('\n');
+      var defs = {};
+      var keep = [];
+      for (var i = 0; i < lines.length; i++) {
+        var m = lines[i].match(/^\[\^([^\]]+)\]:\s*(.*)$/);
+        if (!m) {
+          keep.push(lines[i]);
+          continue;
+        }
+        var id = m[1];
+        var text = m[2] || '';
+        var j = i + 1;
+        while (j < lines.length && /^\s{2,}\S/.test(lines[j])) {
+          text += '\n' + lines[j].replace(/^\s+/, '');
+          j++;
+        }
+        defs[id] = text;
+        i = j - 1;
+      }
+
+      var order = [];
+      var numbers = {};
+      var body = keep.join('\n').replace(/\[\^([^\]]+)\]/g, function(_, id) {
+        if (!numbers[id]) {
+          order.push(id);
+          numbers[id] = order.length;
+        }
+        return '<a href="#note-' + numbers[id] + '" class="note-ref" data-note="' + numbers[id] + '" id="note-ref-' + numbers[id] + '">[' + numbers[id] + ']</a>';
+      });
+
+      var notes = order.map(function(id, idx) {
+        var raw = defs[id] || '';
+        var html = marked.parseInline(raw);
+        return { id: id, num: idx + 1, html: html };
+      });
+
+      return { body: body, notes: notes };
+    }
+
+    function buildTOC(articleEl, tocEl) {
+      var headings = articleEl.querySelectorAll('h2, h3');
+      if (!headings.length) {
+        tocEl.innerHTML = '<div class="toc-title">Contents</div><div style="font-size:12px;color:#8b98ab;">No sections</div>';
+        return;
+      }
+      var used = {};
+      var items = [];
+      headings.forEach(function(h) {
+        var base = slugify(h.textContent);
+        var id = base || 'section';
+        if (used[id]) {
+          used[id] += 1;
+          id += '-' + used[id];
+        } else {
+          used[id] = 1;
+        }
+        h.id = id;
+        items.push('<li class="toc-item toc-' + h.tagName.toLowerCase() + '"><a href="#' + id + '">' + escapeHtml(h.textContent) + '</a></li>');
+      });
+      tocEl.innerHTML = '<div class="toc-title">Contents</div><ul class="toc-list">' + items.join('') + '</ul>';
+    }
+
+    function renderSidenotes(notes, notesEl) {
+      if (!notes.length) {
+        notesEl.innerHTML = '<div class="notes-title">Notes</div><div style="font-size:12px;color:#8b98ab;">No notes yet</div>';
+        return;
+      }
+      notesEl.innerHTML = '<div class="notes-title">Notes</div><ol class="notes-list">' +
+        notes.map(function(n) {
+          return '<li class="note-item" id="note-' + n.num + '"><span class="note-num">' + n.num + '</span>' + n.html + '</li>';
+        }).join('') +
+      '</ol>';
+    }
+
     // ===== Load Post =====
     var slug = new URLSearchParams(window.location.search).get('slug');
     var contentEl = document.getElementById('content');
@@ -766,8 +1069,9 @@
           // Update page title
           if (meta.title) document.title = meta.title + ' — Juneyoung Park';
 
-          // 1) Protect math from marked
-          var protected_ = protectMath(body);
+          // 1) Extract sidenotes, then protect math from marked
+          var noteData = extractSidenotes(body);
+          var protected_ = protectMath(noteData.body);
 
           // 2) Configure marked (no highlight — we do it manually after DOM insert)
           marked.setOptions({ breaks: false, gfm: true });
@@ -783,19 +1087,31 @@
           var tags = Array.isArray(meta.tags) ? meta.tags : [];
 
           contentEl.innerHTML =
-            '<div class="post-header">' +
-              '<a href="/blog/" class="post-back"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg> Back to Blog</a>' +
-              '<div class="post-meta-bar">' +
-                (dateStr ? '<span class="post-date">' + dateStr + '</span>' : '') +
-                (meta.category ? '<span class="post-category">' + meta.category + '</span>' : '') +
-              '</div>' +
-              '<h1 class="post-page-title">' + (meta.title || slug) + '</h1>' +
-              (tags.length ? '<div class="post-tags-bar">' + tags.map(function(t) { return '<span class="post-tag">' + t + '</span>'; }).join('') + '</div>' : '') +
-            '</div>' +
-            '<div class="article">' + htmlContent + '</div>' +
-            '<div class="post-footer">' +
-              '<a href="/blog/" class="post-footer-back"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg> Back to Blog</a>' +
+            '<div class="post-shell">' +
+              '<aside class="toc-column" id="tocColumn"></aside>' +
+              '<main class="post-main">' +
+                '<div class="post-header">' +
+                  '<a href="/blog/" class="post-back"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg> Back to Blog</a>' +
+                  '<div class="post-meta-bar">' +
+                    (dateStr ? '<span class="post-date">' + dateStr + '</span>' : '') +
+                    (meta.category ? '<span class="post-category">' + meta.category + '</span>' : '') +
+                  '</div>' +
+                  '<h1 class="post-page-title">' + (meta.title || slug) + '</h1>' +
+                  (tags.length ? '<div class="post-tags-bar">' + tags.map(function(t) { return '<span class="post-tag">' + t + '</span>'; }).join('') + '</div>' : '') +
+                '</div>' +
+                '<div class="article">' + htmlContent + '</div>' +
+                '<div class="post-footer">' +
+                  '<a href="/blog/" class="post-footer-back"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg> Back to Blog</a>' +
+                '</div>' +
+              '</main>' +
+              '<aside class="notes-column" id="notesColumn"></aside>' +
             '</div>';
+
+          var articleEl = contentEl.querySelector('.article');
+          var tocEl = document.getElementById('tocColumn');
+          var notesEl = document.getElementById('notesColumn');
+          if (articleEl && tocEl) buildTOC(articleEl, tocEl);
+          if (notesEl) renderSidenotes(noteData.notes, notesEl);
 
           // 5) Syntax highlight code blocks (after DOM insertion)
           contentEl.querySelectorAll('pre code').forEach(function(codeEl) {
@@ -829,6 +1145,14 @@
 
           // 6) Render KaTeX math
           renderKaTeX(contentEl);
+
+          // 7) Execute embedded <script> tags (innerHTML doesn't run them)
+          contentEl.querySelectorAll('.article script').forEach(function(old) {
+            var s = document.createElement('script');
+            if (old.src) { s.src = old.src; }
+            else { s.textContent = old.textContent; }
+            old.parentNode.replaceChild(s, old);
+          });
         })
         .catch(function() {
           contentEl.innerHTML = '<div class="error-state"><h2>Post not found</h2><p>The post "' + slug + '" could not be loaded.</p><a href="/blog/">&larr; Back to Blog</a></div>';
