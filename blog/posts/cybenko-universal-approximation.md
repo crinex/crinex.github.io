@@ -7,7 +7,7 @@ tags: ["Universal Approximation", "Cybenko", "Neural Networks", "Functional Anal
 
 # 왜 뉴럴 네트워크는 모든 함수를 근사할 수 있을까?
 
-가장 단순한 구조의 신경망 생각해보자. 입력층, 은닉층 하나, 출력층. 활성화 함수는 시그모이드. 이 네트워크의 출력은 다음과 같다.
+가장 단순한 구조의 신경망을 생각해보자. 입력층, 은닉층 하나, 출력층. 활성화 함수는 시그모이드. 이 네트워크의 출력은 다음과 같다.
 
 $$f_\theta(x) = \sum_{i=1}^{N} u_i \, \sigma(a_i^\top x + b_i)$$
 
@@ -314,6 +314,8 @@ Universal Approximation Theorem은 강력하지만 한계도 명확하다. 이 �
 ---
 
 *Based on G. Cybenko, "Approximation by Superpositions of a Sigmoidal Function", Mathematics of Control, Signals, and Systems, 1989.*
+
+<div style="margin-top:2rem;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-secondary,#f8f8fa);"><strong>Lecture Note</strong><br><span style="font-size:0.9em;color:var(--text-secondary,#666);">Universal Approximation Theorem에 대한 수학적 증명이 담긴 강의 노트입니다.</span><br><a href="/blog/posts/assets/cybenko-universal-approximation/lecture-note.pdf" target="_blank" style="display:inline-block;margin-top:0.5rem;font-size:0.9em;">[LC]Universal_Approximation_Theorem_JYP.pdf ↓</a></div>
 
 <script>
 (function() {
