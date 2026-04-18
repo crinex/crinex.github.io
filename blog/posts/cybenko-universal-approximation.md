@@ -11,7 +11,7 @@ tags: ["Universal Approximation", "Cybenko", "Neural Networks", "Functional Anal
 
 $$f_\theta(x) = \sum_{i=1}^{N} u_i \, \sigma(a_i^\top x + b_i)$$
 
-각 항은 시그모이드 함수를 한 번 통과한 값에 가중치를 곱한 것에 불과하다. 이런 단순한 조합이 어떻게 **임의의 연속함수**를 정확하게 근사할 수 있는가?
+각 항은 시그모이드 함수를 통과한 값에 가중치를 곱한 것에 불과하다. 이런 단순한 조합이 어떻게 **임의의 연속함수**를 정확하게 근사할 수 있는가?
 
 1989년, George Cybenko의 연구에 따르면 신경망 은닉층의 뉴런 수($N$)를 충분히 크게 하면, 컴팩트 집합[^1] 위의 어떤 연속함수든 균등하게(sup-norm) 근사할 수 있다. 이것이 **Universal Approximation Theorem**이다.
 
@@ -92,7 +92,7 @@ $$\sigma\!\left(\frac{x - t_0}{\delta}\right) - \sigma\!\left(\frac{x - t_1}{\de
   <div class="fig-caption"><strong>Figure 3.</strong> 뉴런 수를 늘리면 파란색 근사가 빨간색 목표함수에 점점 가까워진다. 오차(회색 점선)도 함께 줄어든다.</div>
 </div>
 
-> **이것이 Universal Approximation을 관통하는 개념이다.** 시그모이드 → 스위치 → 블록 → 블록을 쌓아서 임의의 함수를 근사. $N$이 커질수록 오차는 점점 줄어든다.
+> **이것이 Universal Approximation의 핵심을 관통하는 개념이다.** 시그모이드 → 스위치 → 블록 → 블록을 쌓아서 임의의 함수를 근사. $N$이 커질수록 오차는 점점 줄어든다.
 
 ## 뉴런 한 칼에 세상이 반 토막
 
@@ -314,6 +314,8 @@ Universal Approximation Theorem은 강력하지만 한계도 명확하다. 이 �
 ---
 
 *Based on G. Cybenko, "Approximation by Superpositions of a Sigmoidal Function", Mathematics of Control, Signals, and Systems, 1989.*
+
+<div style="margin-top:2rem;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:8px;background:var(--bg-secondary,#f8f8fa);"><strong>Lecture Note</strong><br><span style="font-size:0.9em;color:var(--text-secondary,#666);">Universal Approximation Theorem에 대한 수학적 증명이 담긴 강의 노트입니다.</span><br><a href="/blog/posts/assets/cybenko-universal-approximation/lecture-note.pdf" target="_blank" style="display:inline-block;margin-top:0.5rem;font-size:0.9em;">[LC]Universal_Approximation_Theorem_JYP.pdf ↓</a></div>
 
 <script>
 (function() {
