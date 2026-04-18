@@ -5,6 +5,14 @@
       "type": "conference",
       "items": [
         {
+          "title": "Memory-Efficient Structured Backpropagation for On-Device LLM Fine-Tuning",
+          "url": "https://arxiv.org/abs/2602.13069",
+          "authors": ["Juneyoung Park*", "Yuri Hong", "Seongwan Kim", "Jaeho Lee"],
+          "venue": "ACL 2026",
+          "venueClass": "acl",
+          "tags": ["On-Device Training", "LoRA", "Industry Track"]
+        },
+        {
           "title": "Riemannian Optimization for LoRA on the Stiefel Manifold",
           "url": "https://aclanthology.org/anthology-files/pdf/findings/2025.findings-emnlp.1143.pdf",
           "authors": ["Juneyoung Park*", "Minjae Kang", "Seongbae Lee", "Haegang Lee", "Seongwan Kim", "Jaeho Lee"],
@@ -56,14 +64,6 @@
       "name": "Preprint",
       "type": "preprint",
       "items": [
-        {
-          "title": "Memory-Efficient Structured Backpropagation for On-Device LLM Fine-Tuning",
-          "url": "https://arxiv.org/pdf/2602.13069",
-          "authors": ["Juneyoung Park*", "Yuri Hong", "Seongwan Kim", "Jaeho Lee"],
-          "venue": "arXiv 2026",
-          "venueClass": "arxiv",
-          "tags": ["On-Device Training", "LLM", "LoRA"]
-        },
         {
           "title": "LCSB: Layer-Cyclic Selective Backpropagation for Memory-Efficient On-Device LLM Fine-Tuning",
           "url": "https://arxiv.org/pdf/2602.13073",

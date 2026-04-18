@@ -1,5 +1,13 @@
 [
   {
+    "date": "Jul 2026",
+    "text": "Presenting <a href=\"https://arxiv.org/abs/2602.13069\" target=\"_blank\">\"Memory-Efficient Structured Backpropagation for On-Device LLM Fine-Tuning\"</a> at **ACL 2026** in San Diego, USA"
+  },
+  {
+    "date": "Apr 2026",
+    "text": "Paper accepted to **ACL 2026**: Memory-Efficient Structured Backpropagation for On-Device LLM Fine-Tuning (first author)"
+  },
+  {
     "date": "Nov 2025",
     "text": "Presenting <a href=\"https://aclanthology.org/anthology-files/pdf/findings/2025.findings-emnlp.1143.pdf\" target=\"_blank\">\"Riemannian Optimization for LoRA on the Stiefel Manifold\"</a> at **EMNLP 2025** in Suzhou, China."
   },
