@@ -7,7 +7,7 @@ tags: ["Universal Approximation", "Cybenko", "Neural Networks", "Functional Anal
 
 # 왜 뉴럴 네트워크는 모든 함수를 근사할 수 있을까?
 
-가장 단순한 구조의 신경망 생각해보자. 입력층, 은닉층 하나, 출력층. 활성화 함수는 시그모이드. 이 네트워크의 출력은 다음과 같다.
+가장 단순한 구조의 신경망을 생각해보자. 입력층, 은닉층 하나, 출력층. 활성화 함수는 시그모이드. 이 네트워크의 출력은 다음과 같다.
 
 $$f_\theta(x) = \sum_{i=1}^{N} u_i \, \sigma(a_i^\top x + b_i)$$
 
