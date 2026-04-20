@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" font-family="Inter, Pretendard, sans-serif">
+  <defs>
+    <linearGradient id="ssBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f9fafc"/>
+      <stop offset="100%" stop-color="#eef2f7"/>
+    </linearGradient>
+    <filter id="ssSoft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.16"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="ssArr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4a5b73"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="440" fill="url(#ssBg)"/>
+
+  <text x="500" y="30" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">On-chip SRAM 배정은 컴파일러가 미리 풀어둔 퍼즐이다</text>
+  <text x="500" y="50" text-anchor="middle" font-size="11" fill="#6a7a8e">그래프 finalize 단계에서 일어나는 5단계 스케줄링 — 런타임은 그 결과를 재생만 한다</text>
+
+  <!-- Stage 1: graph -->
+  <g transform="translate(40,90)">
+    <rect width="160" height="240" rx="10" fill="#ffffff" stroke="#cbd4e2" filter="url(#ssSoft)"/>
+    <text x="80" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#2f4e77">① Graph 입력</text>
+    <text x="80" y="40" text-anchor="middle" font-size="9" fill="#6a7a8e">layer op들의 DAG</text>
+
+    <g transform="translate(20,56)">
+      <rect width="120" height="22" rx="4" fill="#3a6ea5"/>
+      <text x="60" y="15" text-anchor="middle" font-size="10" fill="#ffffff">MatMul (Q)</text>
+    </g>
+    <g transform="translate(20,84)">
+      <rect width="120" height="22" rx="4" fill="#3a9e8f"/>
+      <text x="60" y="15" text-anchor="middle" font-size="10" fill="#ffffff">RoPE</text>
+    </g>
+    <g transform="translate(20,112)">
+      <rect width="120" height="22" rx="4" fill="#3a6ea5"/>
+      <text x="60" y="15" text-anchor="middle" font-size="10" fill="#ffffff">QK<tspan font-size="8" dy="-3">⊤</tspan></text>
+    </g>
+    <g transform="translate(20,140)">
+      <rect width="120" height="22" rx="4" fill="#3a9e8f"/>
+      <text x="60" y="15" text-anchor="middle" font-size="10" fill="#ffffff">Softmax</text>
+    </g>
+    <g transform="translate(20,168)">
+      <rect width="120" height="22" rx="4" fill="#3a6ea5"/>
+      <text x="60" y="15" text-anchor="middle" font-size="10" fill="#ffffff">×V</text>
+    </g>
+    <g transform="translate(20,196)">
+      <rect width="120" height="22" rx="4" fill="#c9a227"/>
+      <text x="60" y="15" text-anchor="middle" font-size="10" fill="#ffffff">... 다음 layer</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g stroke="#4a5b73" stroke-width="1.8" fill="none" marker-end="url(#ssArr)">
+    <path d="M205 210 L 238 210"/>
+  </g>
+
+  <!-- Stage 2: Pre-scheduler -->
+  <g transform="translate(240,90)">
+    <rect width="170" height="240" rx="10" fill="#ffffff" stroke="#cbd4e2" filter="url(#ssSoft)"/>
+    <text x="85" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#2f4e77">② Pre-scheduler</text>
+    <text x="85" y="40" text-anchor="middle" font-size="9" fill="#6a7a8e">low-SRAM 경계에서 파티션</text>
+
+    <g transform="translate(14,54)">
+      <rect width="142" height="62" rx="5" fill="#e6eef7" stroke="#3a6ea5" stroke-dasharray="3,2"/>
+      <text x="71" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#2f4e77">Region A</text>
+      <text x="71" y="34" text-anchor="middle" font-size="9" fill="#4a5b73">QKV proj + RoPE</text>
+      <text x="71" y="50" text-anchor="middle" font-size="9" fill="#4a5b73">(fit on-chip)</text>
+    </g>
+    <g transform="translate(14,124)">
+      <rect width="142" height="62" rx="5" fill="#e6eef7" stroke="#3a6ea5" stroke-dasharray="3,2"/>
+      <text x="71" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#2f4e77">Region B</text>
+      <text x="71" y="34" text-anchor="middle" font-size="9" fill="#4a5b73">QK<tspan font-size="7" dy="-2">⊤</tspan><tspan dy="2"></tspan> + softmax + ×V</text>
+      <text x="71" y="50" text-anchor="middle" font-size="9" fill="#4a5b73">(fit on-chip)</text>
+    </g>
+    <text x="85" y="210" text-anchor="middle" font-size="9" fill="#6a7a8e">topological reorder</text>
+    <text x="85" y="224" text-anchor="middle" font-size="9" fill="#6a7a8e">→ "runlist" 생성</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g stroke="#4a5b73" stroke-width="1.8" fill="none" marker-end="url(#ssArr)">
+    <path d="M415 210 L 448 210"/>
+  </g>
+
+  <!-- Stage 3: Spill/Fill insertion -->
+  <g transform="translate(450,90)">
+    <rect width="170" height="240" rx="10" fill="#ffffff" stroke="#cbd4e2" filter="url(#ssSoft)"/>
+    <text x="85" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#2f4e77">③ Spill / Fill 삽입</text>
+    <text x="85" y="40" text-anchor="middle" font-size="9" fill="#6a7a8e">on-chip이 넘치면 DRAM 경유</text>
+
+    <g transform="translate(14,54)">
+      <rect width="142" height="20" rx="3" fill="#3a6ea5"/>
+      <text x="71" y="14" text-anchor="middle" font-size="9" fill="#ffffff">Region A 실행</text>
+    </g>
+    <g transform="translate(14,78)">
+      <rect width="142" height="16" rx="3" fill="#c44e52" fill-opacity="0.85"/>
+      <text x="71" y="12" text-anchor="middle" font-size="9" fill="#ffffff">spill: tmp → DRAM</text>
+    </g>
+    <g transform="translate(14,98)">
+      <rect width="142" height="20" rx="3" fill="#3a6ea5"/>
+      <text x="71" y="14" text-anchor="middle" font-size="9" fill="#ffffff">Region B 실행</text>
+    </g>
+    <g transform="translate(14,122)">
+      <rect width="142" height="16" rx="3" fill="#3a9e8f" fill-opacity="0.85"/>
+      <text x="71" y="12" text-anchor="middle" font-size="9" fill="#ffffff">fill: tmp ← DRAM</text>
+    </g>
+    <g transform="translate(14,142)">
+      <rect width="142" height="20" rx="3" fill="#3a6ea5"/>
+      <text x="71" y="14" text-anchor="middle" font-size="9" fill="#ffffff">Region C 실행</text>
+    </g>
+    <text x="85" y="190" text-anchor="middle" font-size="9" fill="#6a7a8e">오버플로 텐서만 선택적으로</text>
+    <text x="85" y="204" text-anchor="middle" font-size="9" fill="#6a7a8e">DRAM round-trip</text>
+    <text x="85" y="224" text-anchor="middle" font-size="9" fill="#8a98ad">(전용 spill/fill 버퍼)</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <g stroke="#4a5b73" stroke-width="1.8" fill="none" marker-end="url(#ssArr)">
+    <path d="M625 210 L 658 210"/>
+  </g>
+
+  <!-- Stage 4: Offset allocation -->
+  <g transform="translate(660,90)">
+    <rect width="170" height="240" rx="10" fill="#ffffff" stroke="#cbd4e2" filter="url(#ssSoft)"/>
+    <text x="85" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#2f4e77">④ Offset 배정</text>
+    <text x="85" y="40" text-anchor="middle" font-size="9" fill="#6a7a8e">lifetime이 안 겹치면 같은 주소 공유</text>
+
+    <!-- On-chip memory layout -->
+    <g transform="translate(14,54)">
+      <rect width="142" height="170" rx="5" fill="#fef6f6" stroke="#c44e52" stroke-width="1.2"/>
+      <text x="71" y="16" text-anchor="middle" font-size="9" font-weight="700" fill="#7a2e30">On-chip SRAM</text>
+
+      <!-- Tensor A1 -->
+      <rect x="8" y="26" width="60" height="30" rx="3" fill="#3a6ea5" fill-opacity="0.85"/>
+      <text x="38" y="45" text-anchor="middle" font-size="8" fill="#ffffff">tensor A</text>
+
+      <!-- Tensor B1 overlays same offset -->
+      <rect x="76" y="26" width="60" height="30" rx="3" fill="#3a9e8f" fill-opacity="0.55" stroke="#3a9e8f" stroke-dasharray="2,2"/>
+      <text x="106" y="45" text-anchor="middle" font-size="8" fill="#1e5f55">C (reuse)</text>
+
+      <!-- Tensor KV -->
+      <rect x="8" y="62" width="128" height="28" rx="3" fill="#c9a227" fill-opacity="0.85"/>
+      <text x="72" y="80" text-anchor="middle" font-size="8" fill="#ffffff">KV window</text>
+
+      <!-- Tensor weight tile -->
+      <rect x="8" y="96" width="80" height="28" rx="3" fill="#c44e52" fill-opacity="0.85"/>
+      <text x="48" y="114" text-anchor="middle" font-size="8" fill="#ffffff">W-tile</text>
+
+      <!-- Tensor double buffer -->
+      <rect x="96" y="96" width="40" height="28" rx="3" fill="#c44e52" fill-opacity="0.55" stroke="#c44e52" stroke-dasharray="2,2"/>
+      <text x="116" y="114" text-anchor="middle" font-size="8" fill="#7a2e30">W′</text>
+
+      <!-- Softmax state -->
+      <rect x="8" y="130" width="128" height="24" rx="3" fill="#2f3d57" fill-opacity="0.85"/>
+      <text x="72" y="146" text-anchor="middle" font-size="8" fill="#ffffff">softmax state (m, ℓ)</text>
+
+      <text x="71" y="168" text-anchor="middle" font-size="8" fill="#7a2e30">overlapping lifetimes 재활용</text>
+    </g>
+  </g>
+
+  <!-- Arrow 4 (down to final reschedule) -->
+  <g stroke="#4a5b73" stroke-width="1.8" fill="none" marker-end="url(#ssArr)">
+    <path d="M835 210 L 868 210"/>
+  </g>
+
+  <!-- Stage 5: Final reschedule -->
+  <g transform="translate(870,90)">
+    <rect width="110" height="240" rx="10" fill="#ffffff" stroke="#cbd4e2" filter="url(#ssSoft)"/>
+    <text x="55" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#2f4e77">⑤ 최종 재정렬</text>
+    <text x="55" y="38" text-anchor="middle" font-size="8" fill="#6a7a8e">병렬성 최대화</text>
+
+    <g transform="translate(8,52)" font-size="8" fill="#4a5b73">
+      <text y="10">• op splitting</text>
+      <text y="26">(launch / wait</text>
+      <text y="40">pair로 분리)</text>
+      <text y="62">• Matrix + Vector</text>
+      <text y="76">+ DMA 동시 dispatch</text>
+      <text y="98">• 의존성 + offset</text>
+      <text y="112">제약 존중</text>
+      <text y="136">────────</text>
+      <text y="152">런타임은 이 결과를</text>
+      <text y="166">execute() 호출 때</text>
+      <text y="180">그대로 재생</text>
+    </g>
+  </g>
+
+  <!-- Bottom note -->
+  <text x="500" y="400" text-anchor="middle" font-size="11" fill="#6a7a8e">이 5단계 전체가 모델 배포 때 이미 끝나있다. 런타임 `execute()`는 그래프를 "푸는" 게 아니라 <tspan font-weight="700" fill="#2f4e77">결정된 스케줄을 재생</tspan>할 뿐이다.</text>
+</svg>

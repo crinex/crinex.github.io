@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" font-family="Inter, Pretendard, sans-serif">
+  <defs>
+    <linearGradient id="rtBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f9fafc"/>
+      <stop offset="100%" stop-color="#eef2f7"/>
+    </linearGradient>
+    <filter id="rtSoft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="rtArr" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f4e77"/>
+    </marker>
+    <marker id="rtArrBack" markerWidth="10" markerHeight="10" refX="1" refY="5" orient="auto">
+      <path d="M10,0 L0,5 L10,10 z" fill="#3a9e8f"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="560" fill="url(#rtBg)"/>
+
+  <text x="500" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a2e">한 번의 추론 호출이 NPU까지 내려가는 길</text>
+  <text x="500" y="52" text-anchor="middle" font-size="12" fill="#6a7a8e">일반적인 NPU 런타임 스택 — 괄호 안은 Qualcomm (Snapdragon 8 Elite) 이름</text>
+
+  <!-- Host side (left) -->
+  <g transform="translate(40,80)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#2f4e77">Host CPU (예: ARM Kryo)</text>
+
+    <!-- Application -->
+    <g transform="translate(0,14)">
+      <rect width="300" height="78" rx="9" fill="#ffffff" stroke="#cbd4e2" filter="url(#rtSoft)"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#1a1a2e">① Application</text>
+      <text x="14" y="40" font-size="10" fill="#6a7a8e">tokenizer → token_id</text>
+      <text x="14" y="56" font-size="10" fill="#6a7a8e">공유메모리 버퍼 준비 (input / output / KV)</text>
+      <text x="14" y="72" font-size="10" fill="#6a7a8e">logit → sampler → 다음 token</text>
+    </g>
+
+    <!-- Vendor Runtime -->
+    <g transform="translate(0,106)">
+      <rect width="300" height="96" rx="9" fill="#ffffff" stroke="#cbd4e2" filter="url(#rtSoft)"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#1a1a2e">② Vendor Runtime</text>
+      <text x="14" y="38" font-size="10" fill="#6a7a8e">(Qualcomm QNN · HTP backend)</text>
+      <text x="14" y="56" font-size="10" fill="#6a7a8e">Backend → Device → Context → Graph 계층</text>
+      <text x="14" y="72" font-size="10" fill="#6a7a8e">Graph_execute(inputs, outputs)</text>
+      <text x="14" y="88" font-size="10" fill="#6a7a8e">Mem_register(ION / DMA-BUF / Custom)</text>
+    </g>
+
+    <!-- Host-Accelerator IPC -->
+    <g transform="translate(0,216)">
+      <rect width="300" height="56" rx="9" fill="#fff5d6" stroke="#c9a227" filter="url(#rtSoft)"/>
+      <text x="150" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#4a3a0a">③ Host ↔ Accelerator IPC</text>
+      <text x="150" y="38" text-anchor="middle" font-size="10" fill="#4a3a0a">공유 메모리 기반 RPC · zero-copy 포인터 전달</text>
+      <text x="150" y="50" text-anchor="middle" font-size="9" fill="#4a3a0a">(Qualcomm FastRPC · ~μs)</text>
+    </g>
+
+    <!-- Autoregressive loop -->
+    <g transform="translate(0,286)">
+      <rect width="300" height="178" rx="9" fill="#f7f9fc" stroke="#cbd4e2" stroke-dasharray="3,3"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#2f4e77">Autoregressive loop (per-token)</text>
+      <g transform="translate(14,34)" fill="#6a7a8e" font-size="10.5">
+        <text y="14">1. App: token_id ← sampler</text>
+        <text y="32">2. Runtime: Graph_execute()</text>
+        <text y="50">3. 가속기 스케줄러가 layer 스크립트 실행</text>
+        <text y="68">4. Matrix/Vector 엔진이 on-chip SRAM에서 연산</text>
+        <text y="86">5. KV cache 한 칸 증가 (shared buffer)</text>
+        <text y="104">6. logit output → shared memory</text>
+        <text y="122">7. 호스트가 결과 읽어 다음 token 뽑음</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Divider -->
+  <line x1="370" y1="70" x2="370" y2="490" stroke="#cbd4e2" stroke-dasharray="3,3"/>
+
+  <!-- Accelerator side (right) -->
+  <g transform="translate(400,80)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#2f4e77">NPU Accelerator (예: Hexagon DSP)</text>
+
+    <!-- On-NPU Scheduler -->
+    <g transform="translate(0,14)">
+      <rect width="560" height="82" rx="9" fill="#ffffff" stroke="#cbd4e2" filter="url(#rtSoft)"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#1a1a2e">④ On-NPU Scheduler</text>
+      <text x="14" y="40" font-size="10" fill="#6a7a8e">미리 컴파일된 layer 실행 스크립트 (serialized graph)를 순서대로 재생</text>
+      <text x="14" y="56" font-size="10" fill="#6a7a8e">각 layer: DMA 예약 → Matrix dispatch → Vector dispatch → spill/fill</text>
+      <text x="14" y="72" font-size="10" fill="#6a7a8e">Scalar 유닛이 주소 계산·loop 제어 담당</text>
+    </g>
+
+    <!-- NPU cores + memory -->
+    <g transform="translate(0,106)">
+      <rect width="560" height="260" rx="9" fill="#ffffff" stroke="#3a6ea5" stroke-width="1.3" filter="url(#rtSoft)"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#1e3a5f">⑤ NPU cores — 실제 연산이 벌어지는 곳</text>
+
+      <!-- Matrix Engine -->
+      <g transform="translate(20,40)">
+        <rect width="130" height="86" rx="7" fill="#3a6ea5"/>
+        <text x="65" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">Matrix Engine</text>
+        <text x="65" y="38" text-anchor="middle" font-size="9" fill="#d6e3f0">(Qualcomm HMX)</text>
+        <text x="65" y="54" text-anchor="middle" font-size="9" fill="#d6e3f0">MatMul · MAC array</text>
+        <text x="65" y="68" text-anchor="middle" font-size="9" fill="#d6e3f0">INT4/8 · FP16</text>
+        <text x="65" y="80" text-anchor="middle" font-size="9" fill="#d6e3f0">compute-bound 주도</text>
+      </g>
+
+      <!-- Vector Engine -->
+      <g transform="translate(160,40)">
+        <rect width="130" height="86" rx="7" fill="#3a9e8f"/>
+        <text x="65" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">Vector Engine</text>
+        <text x="65" y="38" text-anchor="middle" font-size="9" fill="#c9e5df">(Qualcomm HVX)</text>
+        <text x="65" y="54" text-anchor="middle" font-size="9" fill="#c9e5df">Softmax · norm · RoPE</text>
+        <text x="65" y="68" text-anchor="middle" font-size="9" fill="#c9e5df">dequant · residual</text>
+        <text x="65" y="80" text-anchor="middle" font-size="9" fill="#c9e5df">1024-bit SIMD</text>
+      </g>
+
+      <!-- Scalar -->
+      <g transform="translate(300,40)">
+        <rect width="130" height="86" rx="7" fill="#c9a227"/>
+        <text x="65" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">Scalar Control</text>
+        <text x="65" y="38" text-anchor="middle" font-size="9" fill="#fff5d6">(Hexagon Scalar)</text>
+        <text x="65" y="54" text-anchor="middle" font-size="9" fill="#fff5d6">address gen · loop</text>
+        <text x="65" y="68" text-anchor="middle" font-size="9" fill="#fff5d6">branch · index</text>
+        <text x="65" y="80" text-anchor="middle" font-size="9" fill="#fff5d6">dispatch 제어</text>
+      </g>
+
+      <!-- DMA -->
+      <g transform="translate(440,40)">
+        <rect width="100" height="86" rx="7" fill="#2f3d57"/>
+        <text x="50" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">DMA</text>
+        <text x="50" y="38" text-anchor="middle" font-size="9" fill="#d7dae3">DRAM ↔ SRAM</text>
+        <text x="50" y="54" text-anchor="middle" font-size="9" fill="#d7dae3">async</text>
+        <text x="50" y="68" text-anchor="middle" font-size="9" fill="#d7dae3">double buffer</text>
+        <text x="50" y="82" text-anchor="middle" font-size="9" fill="#d7dae3">spill/fill 담당</text>
+      </g>
+
+      <!-- On-chip SRAM / VTCM -->
+      <g transform="translate(20,140)">
+        <rect width="520" height="108" rx="7" fill="#c44e52"/>
+        <text x="260" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">On-chip Scratchpad (~8 MB)</text>
+        <text x="260" y="38" text-anchor="middle" font-size="10" fill="#fde0e1">(Qualcomm VTCM) — SW-managed · 컴파일러가 offset 배정</text>
+        <text x="260" y="54" text-anchor="middle" font-size="9" fill="#fde0e1">현재 layer의 tile들, KV window, softmax state가 여기 살고 있음</text>
+        <g transform="translate(14,64)" fill="#ffffff">
+          <rect x="0" y="0" width="70" height="32" rx="4" fill-opacity="0.9"/>
+          <text x="35" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#7a2e30">W-tile</text>
+          <text x="35" y="26" text-anchor="middle" font-size="8" fill="#7a2e30">INT4</text>
+
+          <rect x="78" y="0" width="70" height="32" rx="4" fill-opacity="0.9"/>
+          <text x="113" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#7a2e30">A-tile</text>
+          <text x="113" y="26" text-anchor="middle" font-size="8" fill="#7a2e30">FP16</text>
+
+          <rect x="156" y="0" width="70" height="32" rx="4" fill-opacity="0.9"/>
+          <text x="191" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#7a2e30">KV-tile</text>
+          <text x="191" y="26" text-anchor="middle" font-size="8" fill="#7a2e30">INT8 stream</text>
+
+          <rect x="234" y="0" width="70" height="32" rx="4" fill-opacity="0.9"/>
+          <text x="269" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#7a2e30">Acc</text>
+          <text x="269" y="26" text-anchor="middle" font-size="8" fill="#7a2e30">partial sums</text>
+
+          <rect x="312" y="0" width="70" height="32" rx="4" fill-opacity="0.9"/>
+          <text x="347" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#7a2e30">m, ℓ</text>
+          <text x="347" y="26" text-anchor="middle" font-size="8" fill="#7a2e30">softmax state</text>
+
+          <rect x="390" y="0" width="100" height="32" rx="4" fill-opacity="0.85"/>
+          <text x="440" y="14" text-anchor="middle" font-size="9" font-weight="700" fill="#7a2e30">Double buffer</text>
+          <text x="440" y="26" text-anchor="middle" font-size="8" fill="#7a2e30">DMA ↔ compute overlap</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- DRAM -->
+    <g transform="translate(0,376)">
+      <rect width="560" height="76" rx="9" fill="#eef2f7" stroke="#cbd4e2"/>
+      <text x="14" y="22" font-size="12" font-weight="700" fill="#2f4e77">⑥ DRAM (공유 SoC 메모리 · 예: LPDDR5X ~70 GB/s)</text>
+      <text x="14" y="40" font-size="10" fill="#6a7a8e">weights persistent buffer · KV cache shared buffer · activation · spill/fill 영역</text>
+      <text x="14" y="56" font-size="10" fill="#6a7a8e">layer 경계에서만 접근 · 내부 중간 텐서는 on-chip SRAM 안에서 소멸</text>
+      <text x="14" y="70" font-size="9" fill="#8a98ad">(Qualcomm: QNN_HTP_MEM_WEIGHTS_BUFFER · SHARED_BUFFER · SHARED_SPILLFILL_BUFFER)</text>
+    </g>
+  </g>
+
+  <!-- Arrows: top-down control flow on host side -->
+  <g stroke="#2f4e77" stroke-width="1.8" fill="none" marker-end="url(#rtArr)">
+    <path d="M190 202 L 190 214"/>
+    <path d="M190 274 L 190 284"/>
+  </g>
+
+  <!-- Host -> Accelerator (IPC crossing) -->
+  <g stroke="#c9a227" stroke-width="2" fill="none" marker-end="url(#rtArr)">
+    <path d="M340 244 L 398 130"/>
+  </g>
+  <text x="348" y="210" font-size="10" fill="#c9a227" font-weight="600">invoke</text>
+
+  <!-- Scheduler -> NPU cores -->
+  <g stroke="#2f4e77" stroke-width="1.8" fill="none" marker-end="url(#rtArr)">
+    <path d="M680 176 L 680 202"/>
+  </g>
+
+  <!-- Scratchpad <-> DRAM -->
+  <g stroke="#2f4e77" stroke-width="1.6" fill="none" marker-end="url(#rtArr)">
+    <path d="M680 354 L 680 378"/>
+  </g>
+  <g stroke="#3a9e8f" stroke-width="1.6" fill="none" marker-end="url(#rtArrBack)">
+    <path d="M620 378 L 620 354"/>
+  </g>
+  <text x="540" y="370" font-size="10" fill="#6a7a8e">DMA 스트리밍 (양방향, 비동기)</text>
+
+  <!-- Return path -->
+  <g stroke="#3a9e8f" stroke-width="1.6" fill="none" marker-end="url(#rtArrBack)" stroke-dasharray="5,4">
+    <path d="M398 452 Q 370 490 190 478 L 190 180"/>
+  </g>
+  <text x="240" y="504" font-size="10" fill="#3a9e8f" font-weight="600">⑦ output buffer 업데이트 → "done" → Graph_execute() return</text>
+
+  <!-- Legend -->
+  <g transform="translate(40,530)">
+    <rect x="0" y="0" width="14" height="10" rx="2" fill="#ffffff" stroke="#cbd4e2"/>
+    <text x="20" y="9" font-size="10" fill="#4a5b73">Host CPU</text>
+    <rect x="90" y="0" width="14" height="10" rx="2" fill="#fff5d6" stroke="#c9a227"/>
+    <text x="110" y="9" font-size="10" fill="#4a5b73">Host ↔ NPU 경계 (IPC)</text>
+    <rect x="260" y="0" width="14" height="10" rx="2" fill="#ffffff" stroke="#3a6ea5"/>
+    <text x="280" y="9" font-size="10" fill="#4a5b73">NPU Accelerator</text>
+    <line x1="380" y1="5" x2="405" y2="5" stroke="#2f4e77" stroke-width="1.8" marker-end="url(#rtArr)"/>
+    <text x="412" y="9" font-size="10" fill="#4a5b73">control / request</text>
+    <line x1="510" y1="5" x2="535" y2="5" stroke="#3a9e8f" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#rtArrBack)"/>
+    <text x="542" y="9" font-size="10" fill="#4a5b73">return</text>
+  </g>
+</svg>

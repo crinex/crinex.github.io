@@ -1,5 +1,13 @@
 [
   {
+    "slug": "on-device-llm-npu-snapdragon",
+    "title": "NPU 위에서 LLM은 어떻게 움직이는가: 일반 구조와 Snapdragon 8 Elite로 본 Runtime End-to-End",
+    "date": "2026-04-20",
+    "category": "On-Device AI",
+    "excerpt": "일반적인 NPU 구조와 벤더 런타임 스택을 먼저 정리하고, Qualcomm Snapdragon 8 Elite의 Hexagon NPU를 예시로 execute() 호출부터 마지막 logit까지 런타임 내부를 따라갑니다.",
+    "tags": ["NPU", "Snapdragon 8 Elite", "Hexagon", "On-Device LLM", "QNN", "Inference"]
+  },
+  {
     "slug": "cybenko-universal-approximation",
     "title": "왜 뉴럴 네트워크는 모든 함수를 근사할 수 있을까?",
     "date": "2026-04-04",
