@@ -407,12 +407,14 @@
       border-radius: 4px;
     }
 
+    .pub-venue.acl    { color: #4338ca; background: #e9e7ff; }
     .pub-venue.emnlp  { color: #0d6e63; background: #ddf5f0; }
     .pub-venue.aaai   { color: #1e3a5f; background: #e0ecf5; }
     .pub-venue.ipta   { color: #8b4513; background: #f5ebe0; }
     .pub-venue.jcsm   { color: #5c3d7c; background: #ede5f5; }
     .pub-venue.arxiv  { color: #5a5a6a; background: #eae8e2; }
 
+    [data-theme="dark"] .pub-venue.acl    { color: #a5b4fc; background: #26224a; }
     [data-theme="dark"] .pub-venue.emnlp  { color: #6dd5c4; background: #0f332e; }
     [data-theme="dark"] .pub-venue.aaai   { color: #7ca8d4; background: #1a2a3e; }
     [data-theme="dark"] .pub-venue.ipta   { color: #c4855c; background: #2e1a0a; }
@@ -479,12 +481,12 @@
       font-weight: 600;
     }
 
-    /* ========== Industry Projects — Featured ========== */
+    /* ========== Industry Projects — Editorial ========== */
     .projects-intro {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 32px;
+      margin-bottom: 22px;
       gap: 16px;
     }
 
@@ -494,172 +496,823 @@
 
     .projects-stats {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       flex-shrink: 0;
     }
 
     .projects-stat {
-      text-align: center;
+      text-align: right;
     }
 
     .projects-stat-num {
       font-family: var(--serif);
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--text-primary);
       line-height: 1;
+      letter-spacing: -0.01em;
     }
 
     .projects-stat-label {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-tertiary);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 4px;
+      letter-spacing: 0.1em;
+      margin-top: 6px;
     }
 
+    /* Outer wrapper — large soft glass container that holds the OptAI header + cards */
+    .optai-project-block {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding: 28px 28px 30px;
+      border-radius: 22px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.42), rgba(248, 251, 255, 0.20));
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 22px 50px rgba(24, 40, 68, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(30px) saturate(170%);
+      -webkit-backdrop-filter: blur(30px) saturate(170%);
+    }
+
+    .optai-project-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 14% 8%, rgba(176, 204, 240, 0.32), transparent 38%),
+        radial-gradient(circle at 92% 96%, rgba(255, 196, 168, 0.22), transparent 38%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    [data-theme="dark"] .optai-project-block {
+      background: linear-gradient(160deg, rgba(54, 70, 100, 0.34), rgba(30, 42, 64, 0.22));
+      border-color: rgba(156, 187, 233, 0.26);
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(203, 225, 255, 0.10);
+    }
+
+    [data-theme="dark"] .optai-project-block::before {
+      background:
+        radial-gradient(circle at 14% 8%, rgba(124, 168, 212, 0.22), transparent 40%),
+        radial-gradient(circle at 92% 96%, rgba(196, 133, 92, 0.16), transparent 40%);
+    }
+
+    /* Inner header — transparent, sits on top of the big glass container */
+    .optai-project-overview {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 26px;
+      padding: 4px 4px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+      color: var(--text-primary);
+      background: transparent;
+    }
+
+    [data-theme="dark"] .optai-project-overview {
+      border-bottom-color: rgba(156, 187, 233, 0.22);
+    }
+
+    .optai-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 78px;
+      height: 78px;
+      flex-shrink: 0;
+    }
+
+    .optai-logo-wrap img {
+      width: 84px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    [data-theme="dark"] .optai-logo-wrap img {
+      filter: invert(1) brightness(1.05);
+    }
+
+    .optai-project-kicker {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .optai-project-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .optai-project-copy {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      max-width: 560px;
+    }
+
+    .optai-project-overview .projects-stats {
+      gap: 26px;
+      padding: 0;
+      border: none;
+    }
+
+    .optai-project-overview .projects-stat {
+      text-align: center;
+    }
+
+    .optai-project-overview .projects-stat-num {
+      color: var(--text-primary);
+      font-size: 26px;
+    }
+
+    .optai-project-overview .projects-stat-label {
+      color: var(--text-tertiary);
+    }
+
+    /* Two-column project grid (desktop) — uniform card heights */
     .project-timeline {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
       align-items: stretch;
+      gap: 14px;
+      perspective: none;
     }
 
-    .project-timeline::before {
+    .project-timeline::before,
+    .project-dot-col,
+    .project-dot {
       display: none;
     }
 
     .project-card {
-      display: block;
+      min-height: 0;
+      transform-style: flat;
     }
 
-    .project-card + .project-card {
-      border-top: none;
-    }
-
-    .project-dot-col {
-      display: none;
-    }
-
-    .project-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--timeline-dot);
-      border: 3px solid var(--bg);
-      box-shadow: 0 0 0 2px var(--timeline-dot);
-      z-index: 1;
-      flex-shrink: 0;
+    .project-card:first-child {
+      min-height: 0;
     }
 
     .project-card-body {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      transition: all 0.2s;
-      cursor: default;
+      position: relative;
       height: 100%;
-    }
-
-    .project-card-body:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .project-card-header {
+      overflow: hidden;
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
+      gap: 12px;
+      border-radius: 14px;
+      padding: 18px 20px 16px;
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project-card-body::after {
+      display: none;
+    }
+
+    /* Top meta row: client logo (left) + period & index (right) */
+    .project-client-panel {
+      position: relative;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 10px;
+      gap: 12px;
+      padding: 0;
+      min-height: 0;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      color: var(--text-secondary);
+      transform: none;
+    }
+
+    .project-client-panel::after {
+      display: none;
+    }
+
+    .project-card-topline {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: none;
     }
 
     .project-period {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text-tertiary);
-      letter-spacing: 0.03em;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       font-variant-numeric: tabular-nums;
-      margin-bottom: 6px;
+    }
+
+    .project-index {
+      display: none;
+    }
+
+    .project-type-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 6px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .project-type-poc {
+      color: #8b4513;
+      background: rgba(196, 133, 92, 0.14);
+      border: 1px solid rgba(196, 133, 92, 0.34);
+    }
+
+    .project-type-product {
+      color: var(--accent);
+      background: rgba(124, 168, 212, 0.16);
+      border: 1px solid rgba(124, 168, 212, 0.40);
+    }
+
+    [data-theme="dark"] .project-type-poc {
+      color: var(--accent-warm);
+      background: rgba(196, 133, 92, 0.18);
+      border-color: rgba(196, 133, 92, 0.40);
+    }
+
+    [data-theme="dark"] .project-type-product {
+      color: var(--accent);
+      background: rgba(124, 168, 212, 0.18);
+      border-color: rgba(124, 168, 212, 0.42);
+    }
+
+    /* Transparent logo — image + text only, no chip */
+    .project-client-logo {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 0;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      color: var(--text-primary);
+      transform: none;
+    }
+
+    .project-client-logo-img {
+      display: block;
+      max-width: 90px;
+      max-height: 22px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .project-client-logo-img-lg {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      max-width: 92px;
+      max-height: 24px;
+    }
+
+    .project-client-logo-img-samsung {
+      max-width: 96px;
+      max-height: 18px;
+    }
+
+    /* Polaris logo is white-on-transparent — invert to dark for light theme */
+    .project-client-logo img[src*="polaris"] {
+      filter: brightness(0) saturate(100%) opacity(0.82);
+    }
+
+    [data-theme="dark"] .project-client-logo img[src*="polaris"] {
+      filter: none;
+      opacity: 0.92;
+    }
+
+    [data-theme="dark"] .project-client-logo img[src*="samsung"] {
+      filter: brightness(1.4) saturate(110%);
+    }
+
+    .project-client-logo-main {
+      display: inline-block;
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+
+    .project-client-logo-sub {
+      display: inline-block;
+      font-family: var(--serif);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      color: var(--text-secondary);
+    }
+
+    .project-content-panel {
+      position: relative;
+      display: flex;
+      flex: 1 1 auto;
+      min-width: 0;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0;
     }
 
     .project-title {
+      position: relative;
       font-family: var(--serif);
       font-size: 18px;
       font-weight: 700;
       letter-spacing: -0.01em;
-      line-height: 1.35;
-      margin-bottom: 4px;
+      line-height: 1.32;
+      color: var(--text-primary);
+      margin: 0;
+      transform: none;
     }
 
-    .project-client-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--project-badge-text);
-      background: var(--project-badge-bg);
-      padding: 3px 10px;
-      border-radius: 4px;
-      white-space: nowrap;
-      flex-shrink: 0;
+    .project-card:first-child .project-title {
+      font-size: 18px;
     }
 
     .project-desc-text {
-      font-size: 14px;
+      position: relative;
+      font-size: 13.5px;
       color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 16px;
+      line-height: 1.65;
+      margin: 0;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      transform: none;
     }
 
     .project-tags {
+      position: relative;
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-top: auto;
+      padding-top: 4px;
+      transform: none;
     }
 
     .project-tag {
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--accent);
-      background: var(--accent-light);
-      padding: 3px 8px;
-      border-radius: 3px;
-      letter-spacing: 0.02em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.01em;
     }
 
-    .project-open-btn {
+    [data-theme="dark"] .project-tag {
+      color: var(--accent);
+    }
+
+    /* ========== Industry Projects — Gallery Carousel ========== */
+    .project-carousel-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .project-carousel-btn {
+      width: 40px;
+      height: 40px;
       border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--bg);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.56);
       color: var(--text-primary);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 7px 14px;
       cursor: pointer;
-      transition: all 0.2s;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
-    .project-open-btn:hover {
-      border-color: var(--accent);
+    .project-carousel-btn:hover {
+      border-color: rgba(116, 154, 214, 0.7);
+      background: rgba(255, 255, 255, 0.78);
+      transform: translateY(-1px);
+    }
+
+    .project-carousel-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+      transform: none;
+    }
+
+    .project-carousel-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    [data-theme="dark"] .project-carousel-btn {
+      background: rgba(30, 42, 64, 0.66);
+      border-color: rgba(156, 187, 233, 0.24);
+    }
+
+    .optai-project-block.gallery-mode {
+      display: block;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .optai-project-block.gallery-mode::before {
+      display: none;
+    }
+
+    .gallery-mode .optai-project-overview {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      border-radius: 14px;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.48), rgba(248, 251, 255, 0.22));
+      box-shadow: 0 14px 34px rgba(24, 40, 68, 0.08), inset 0 1px 0 rgba(255,255,255,0.86);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+    }
+
+    [data-theme="dark"] .gallery-mode .optai-project-overview {
+      background: linear-gradient(160deg, rgba(54, 70, 100, 0.34), rgba(30, 42, 64, 0.22));
+      border-color: rgba(156, 187, 233, 0.26);
+    }
+
+    .gallery-mode .optai-project-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .gallery-mode .optai-logo-wrap {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.28);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.80), 0 8px 22px rgba(24,40,68,0.10);
+    }
+
+    .gallery-mode .optai-logo-wrap img {
+      width: 52px;
+      filter: none;
+    }
+
+    [data-theme="dark"] .gallery-mode .optai-logo-wrap img {
+      filter: none;
+    }
+
+    .gallery-mode .optai-project-title {
+      font-size: 19px;
+      margin-bottom: 3px;
+    }
+
+    .gallery-mode .optai-project-copy {
+      max-width: 600px;
+      font-size: 13px;
+    }
+
+    .gallery-mode .projects-stats {
+      gap: 22px;
+      flex-shrink: 0;
+    }
+
+    .project-carousel-shell {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .gallery-mode .project-timeline {
+      display: flex;
+      grid-template-columns: none;
+      gap: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding: 2px 0 6px;
+      margin-left: -20px;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .gallery-mode .project-timeline::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery-mode .project-timeline.is-dragging {
+      cursor: grabbing;
+      scroll-behavior: auto;
+      scroll-snap-type: none;
+    }
+
+    .gallery-mode .project-timeline.is-dragging .project-card-body {
+      cursor: grabbing;
+    }
+
+    .gallery-mode .project-card-body,
+    .gallery-mode .project-card-body img {
+      -webkit-user-drag: none;
+    }
+
+    .gallery-mode .project-card {
+      flex: 0 0 min(344px, calc(100vw - 56px));
+      min-height: 0;
+      padding-left: 20px;
+      scroll-snap-align: start;
+    }
+
+    .gallery-mode .project-card:first-child {
+      min-height: 0;
+    }
+
+    .gallery-mode .project-card-body {
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+      height: 100%;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.82);
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 18px 40px rgba(20,34,56,0.16);
+      transform: none;
+      cursor: pointer;
+    }
+
+    .gallery-mode .project-card-body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255,255,255,0.82), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.05) 48%, rgba(232,238,245,0.52) 100%);
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .gallery-mode .project-card-body::after {
+      display: none;
+    }
+
+    .project-card-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.35s ease;
+    }
+
+    .gallery-mode .project-card-image {
+      display: none;
+    }
+
+    .project-client-watermark {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 1;
+      transform: translateY(-20px);
+      mix-blend-mode: normal;
+    }
+
+    .project-client-watermark img {
+      width: min(70%, 250px);
+      max-height: 150px;
+      object-fit: contain;
+      filter: none;
+    }
+
+    .project-client-watermark .project-client-logo-sub {
+      display: none;
+    }
+
+    .project-client-watermark .project-client-logo-main {
+      color: var(--text-primary);
+      font-size: 58px;
+      opacity: 0.9;
+      text-shadow: none;
+    }
+
+    .gallery-mode .project-card-body:hover .project-card-image,
+    .gallery-mode .project-card-body:focus .project-card-image {
+      transform: scale(1.055);
+    }
+
+    .gallery-mode .project-client-panel {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      z-index: 3;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text-primary);
+      transform: none;
+    }
+
+    .gallery-mode .project-card-topline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      order: 2;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: rgba(8, 16, 30, 0.38);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px) saturate(145%);
+      -webkit-backdrop-filter: blur(12px) saturate(145%);
+    }
+
+    .gallery-mode .project-period {
+      color: rgba(255,255,255,0.95);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.48);
+    }
+
+    .gallery-mode .project-type-badge {
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.32);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    }
+
+    .gallery-mode .project-client-logo {
+      min-height: 0;
+      padding: 7px 10px;
+      border-radius: 9px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255,255,255,0.56);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      order: 1;
+    }
+
+    .gallery-mode .project-client-logo-img {
+      max-width: 92px;
+      max-height: 24px;
+    }
+
+    .gallery-mode .project-client-logo-img-lg {
+      padding: 0;
+      background: transparent;
+    }
+
+    .gallery-mode .project-client-logo img[src*="polaris"] {
+      filter: brightness(0) saturate(100%) opacity(0.86);
+    }
+
+    .gallery-mode .project-client-logo-sub {
+      display: none;
+    }
+
+    .gallery-mode .project-content-panel {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0 22px 22px;
+      color: #ffffff;
+    }
+
+    .gallery-mode .project-title,
+    .gallery-mode .project-card:first-child .project-title {
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.25;
+      text-shadow: none;
+    }
+
+    .gallery-mode .project-desc-text {
+      display: none;
+    }
+
+    .gallery-mode .project-tags {
+      display: none;
+    }
+
+    .gallery-mode .project-tag {
+      color: #ffffff;
+      background: rgba(8,16,30,0.38);
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.34);
+    }
+
+    .project-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 4px;
       color: var(--accent);
-      background: var(--accent-light);
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    .project-open-btn svg {
-      width: 12px;
-      height: 12px;
+    .project-read-more svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery-mode .project-card-body:hover .project-read-more svg,
+    .gallery-mode .project-card-body:focus .project-read-more svg {
+      transform: translateX(3px);
+    }
+
+    .project-carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .project-carousel-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      border-radius: 999px;
+      background: rgba(30,58,95,0.20);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .project-carousel-dot.active {
+      background: var(--accent);
+      transform: scale(1.15);
+    }
+
+    [data-theme="dark"] .project-carousel-dot {
+      background: rgba(124,168,212,0.22);
+    }
+
+    [data-theme="dark"] .project-carousel-dot.active {
+      background: var(--accent);
     }
 
     /* ========== Project Modal ========== */
@@ -761,11 +1414,18 @@
 
     .project-media-hero {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 21 / 7;
       object-fit: cover;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: var(--bg-secondary);
+    }
+
+    .project-modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: -8px;
     }
 
     .project-section {
@@ -1180,6 +1840,351 @@
       transform: translateY(-2px);
     }
 
+    /* ========== Liquid Glass Refinement ========== */
+    .hero-link,
+    .project-carousel-btn,
+    .project-link-list a,
+    .contact-link,
+    .theme-toggle,
+    .oss-badge,
+    .pub-item,
+    .oss-card,
+    .project-modal,
+    .service-group,
+    .gallery-mode .optai-project-overview,
+    .gallery-mode .optai-logo-wrap,
+    .gallery-mode .project-client-logo,
+    .gallery-mode .project-card-body {
+      transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 2.2);
+    }
+
+    .hero-link,
+    .project-carousel-btn,
+    .project-link-list a,
+    .contact-link,
+    .theme-toggle,
+    .oss-badge {
+      box-shadow: 0 6px 6px rgba(0, 0, 0, 0.12), 0 0 20px rgba(0, 0, 0, 0.08), inset 2px 2px 1px rgba(255,255,255,0.50), inset -1px -1px 1px rgba(255,255,255,0.42);
+    }
+
+    .pub-item,
+    .oss-card,
+    .project-modal,
+    .service-group,
+    .gallery-mode .optai-project-overview {
+      box-shadow: 0 8px 10px rgba(0, 0, 0, 0.10), 0 0 26px rgba(0, 0, 0, 0.08), inset 2px 2px 1px rgba(255,255,255,0.55), inset -1px -1px 1px rgba(255,255,255,0.42);
+    }
+
+    .gallery-mode .project-card-body {
+      box-shadow: 0 10px 12px rgba(0, 0, 0, 0.16), 0 0 26px rgba(0, 0, 0, 0.12), inset 2px 2px 1px rgba(255,255,255,0.30), inset -1px -1px 1px rgba(255,255,255,0.24);
+    }
+
+    .gallery-mode .project-card-body {
+      border-color: rgba(255,255,255,0.84);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px) saturate(150%);
+      -webkit-backdrop-filter: blur(8px) saturate(150%);
+    }
+
+    .gallery-mode .optai-logo-wrap,
+    .gallery-mode .project-client-logo {
+      box-shadow: 0 6px 10px rgba(0,0,0,0.12), inset 2px 2px 1px rgba(255,255,255,0.58), inset -1px -1px 1px rgba(255,255,255,0.48);
+    }
+
+    .gallery-mode .optai-project-overview,
+    .gallery-mode .optai-logo-wrap,
+    .gallery-mode .project-client-logo {
+      backdrop-filter: blur(10px) saturate(175%);
+      -webkit-backdrop-filter: blur(10px) saturate(175%);
+    }
+
+    .hero-link::after,
+    .project-carousel-btn::after,
+    .project-link-list a::after,
+    .contact-link::after,
+    .theme-toggle::after,
+    .oss-badge::after,
+    .pub-item::after,
+    .oss-card::after,
+    .project-modal::after,
+    .service-group::after,
+    .gallery-mode .optai-project-overview::after,
+    .gallery-mode .project-client-logo::after,
+    .gallery-mode .optai-logo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      isolation: isolate;
+      pointer-events: none;
+    }
+
+    .gallery-mode .optai-project-overview::before,
+    .gallery-mode .project-card-body .project-content-panel::before {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    .gallery-mode .optai-project-overview::before {
+      inset: 1px;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(255,255,255,0.78), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,0.42), transparent 34%, rgba(255,255,255,0.10) 52%, transparent 74%);
+      mix-blend-mode: screen;
+    }
+
+    .gallery-mode .project-card-body .project-content-panel::before {
+      left: -20px;
+      right: -20px;
+      bottom: -24px;
+      height: 150px;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 28% 18%, rgba(255,255,255,0.70), transparent 34%),
+        radial-gradient(ellipse at 78% 62%, rgba(255,255,255,0.34), transparent 44%),
+        linear-gradient(165deg, rgba(255,255,255,0.64), rgba(255,255,255,0.24) 44%, rgba(255,255,255,0.48));
+      border-radius: 36% 64% 0 0 / 28% 42% 0 0;
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+    }
+
+    .gallery-mode .project-card-body .project-content-panel::after {
+      content: "";
+      position: absolute;
+      left: -12px;
+      right: -12px;
+      top: -20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.26), transparent);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .gallery-mode .project-card-body > .project-client-panel::before {
+      content: "";
+      position: absolute;
+      inset: -10px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255,255,255,0.34), transparent 18%),
+        radial-gradient(circle at 82% 18%, rgba(255,255,255,0.18), transparent 24%);
+      opacity: 0.75;
+      mix-blend-mode: screen;
+    }
+
+    .hero-link:hover,
+    .project-carousel-btn:hover,
+    .project-link-list a:hover,
+    .contact-link:hover,
+    .theme-toggle:hover,
+    .oss-badge:hover {
+      transform: translateY(-1px) scale(1.015);
+      box-shadow: 0 8px 10px rgba(0,0,0,0.14), 0 0 24px rgba(0,0,0,0.10), inset 2px 2px 1px rgba(255,255,255,0.58), inset -1px -1px 1px rgba(255,255,255,0.48);
+    }
+
+    .pub-item:hover,
+    .project-card-body:hover,
+    .oss-card:hover {
+      border-color: rgba(116, 154, 214, 0.72);
+      box-shadow: 0 14px 18px rgba(0,0,0,0.14), 0 0 30px rgba(0,0,0,0.10), inset 2px 2px 1px rgba(255,255,255,0.58), inset -1px -1px 1px rgba(255,255,255,0.48);
+      transform: translateY(-3px) scale(1.006);
+    }
+
+    .gallery-mode .project-card-body:hover {
+      box-shadow: 0 18px 22px rgba(0,0,0,0.18), 0 0 36px rgba(255,255,255,0.16), inset 2px 2px 1px rgba(255,255,255,0.42), inset -1px -1px 1px rgba(255,255,255,0.30);
+    }
+
+    [data-theme="dark"] .hero-link,
+    [data-theme="dark"] .project-carousel-btn,
+    [data-theme="dark"] .project-link-list a,
+    [data-theme="dark"] .contact-link,
+    [data-theme="dark"] .theme-toggle,
+    [data-theme="dark"] .oss-badge,
+    [data-theme="dark"] .pub-item,
+    [data-theme="dark"] .oss-card,
+    [data-theme="dark"] .project-modal,
+    [data-theme="dark"] .service-group,
+    [data-theme="dark"] .gallery-mode .optai-project-overview {
+      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.36), 0 0 24px rgba(0, 0, 0, 0.18), inset 2px 2px 1px rgba(203,225,255,0.16), inset -1px -1px 1px rgba(203,225,255,0.10);
+    }
+
+    .gallery-mode .project-card-body .project-title,
+    .gallery-mode .project-card:first-child .project-title {
+      color: var(--text-primary);
+      text-shadow: none;
+    }
+
+    .gallery-mode .project-read-more {
+      color: var(--accent);
+      text-shadow: none;
+    }
+
+    .gallery-mode .project-card-body .project-desc-text,
+    .gallery-mode .project-card-body .project-tags {
+      display: none;
+    }
+
+    .gallery-mode .project-card-body .project-card-image {
+      display: none;
+    }
+
+    .gallery-mode .project-card-body::before {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255,255,255,0.92), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.74), rgba(255,255,255,0.40) 52%, rgba(232,238,245,0.70) 100%);
+    }
+
+    .gallery-mode .project-card-body .project-content-panel::before {
+      background:
+        radial-gradient(ellipse at 28% 18%, rgba(255,255,255,0.82), transparent 34%),
+        radial-gradient(ellipse at 78% 62%, rgba(255,255,255,0.42), transparent 44%),
+        linear-gradient(165deg, rgba(255,255,255,0.78), rgba(255,255,255,0.34) 44%, rgba(255,255,255,0.56));
+    }
+
+    /* Final Industry Projects card surface */
+    .gallery-mode .project-card-body,
+    .gallery-mode .project-card-body:hover,
+    .gallery-mode .project-card-body:focus {
+      background: rgba(255, 255, 255, 0.92);
+      border-color: rgba(223, 231, 242, 0.9);
+      box-shadow: none;
+    }
+
+    .gallery-mode .project-card-body:hover,
+    .gallery-mode .project-card-body:focus {
+      transform: translateY(-2px);
+    }
+
+    .gallery-mode .project-card-body::before {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255,255,255,0.92), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.56) 54%, rgba(242,246,251,0.7) 100%);
+    }
+
+    .gallery-mode .project-card-body::after,
+    .gallery-mode .project-card-body > .project-client-panel::before {
+      display: none;
+    }
+
+    .project-client-watermark {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+
+    .project-client-watermark img {
+      width: min(86%, 310px);
+      max-height: 205px;
+    }
+
+    .project-client-watermark .project-client-logo-img,
+    .project-client-watermark .project-client-logo-img-lg,
+    .project-client-watermark .project-client-logo-img-samsung {
+      width: min(86%, 310px);
+      max-width: min(86%, 310px);
+      max-height: 205px;
+    }
+
+    .project-client-watermark .project-client-logo-main {
+      font-size: 70px;
+    }
+
+    .gallery-mode .project-client-panel {
+      justify-content: flex-start;
+      right: auto;
+    }
+
+    .gallery-mode .project-card-topline {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .gallery-mode .project-type-badge {
+      border: 0;
+      text-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .gallery-mode .project-type-poc {
+      color: #075985;
+      background: #e0f2fe;
+      border: 1px solid #bae6fd;
+    }
+
+    .gallery-mode .project-type-product {
+      color: #14532d;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .gallery-mode .project-period {
+      color: #526071;
+      text-shadow: none;
+      background: rgba(245, 248, 252, 0.88);
+      border: 1px solid rgba(211, 220, 233, 0.9);
+      border-radius: 999px;
+      padding: 5px 8px;
+    }
+
+    /* Subtle interaction pass: clickable blocks only lift slightly on hover. */
+    .hero-link:hover,
+    .project-open-btn:hover,
+    .project-carousel-btn:hover,
+    .project-link-list a:hover,
+    .contact-link:hover,
+    .theme-toggle:hover,
+    .oss-badge:hover,
+    .pub-item:hover,
+    .oss-card:hover,
+    .service-group:hover,
+    .gallery-mode .optai-project-overview:hover,
+    .gallery-mode .optai-logo-wrap:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(24, 40, 68, 0.08), inset 0 1px 0 rgba(255,255,255,0.78);
+    }
+
+    .gallery-mode .project-card-body:hover,
+    .gallery-mode .project-card-body:focus {
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    .gallery-mode .project-card-body:hover .project-card-image,
+    .gallery-mode .project-card-body:focus .project-card-image,
+    .gallery-mode .project-card-body:hover .project-read-more svg,
+    .gallery-mode .project-card-body:focus .project-read-more svg {
+      transform: none;
+    }
+
+    .project-modal-close:hover {
+      transform: none;
+      background: rgba(116, 154, 214, 0.12);
+    }
+
+    [data-theme="dark"] .hero-link:hover,
+    [data-theme="dark"] .project-open-btn:hover,
+    [data-theme="dark"] .project-carousel-btn:hover,
+    [data-theme="dark"] .project-link-list a:hover,
+    [data-theme="dark"] .contact-link:hover,
+    [data-theme="dark"] .theme-toggle:hover,
+    [data-theme="dark"] .oss-badge:hover,
+    [data-theme="dark"] .pub-item:hover,
+    [data-theme="dark"] .oss-card:hover,
+    [data-theme="dark"] .service-group:hover,
+    [data-theme="dark"] .gallery-mode .optai-project-overview:hover,
+    [data-theme="dark"] .gallery-mode .optai-logo-wrap:hover {
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(203,225,255,0.12);
+    }
+
     /* ========== Mobile Nav Toggle ========== */
     .nav-menu-btn {
       display: none;
@@ -1250,11 +2255,94 @@
 
       section { padding: 40px 0; }
 
-      .project-timeline { grid-template-columns: 1fr; gap: 14px; }
+      .optai-project-block {
+        gap: 16px;
+        padding: 18px 16px 20px;
+        border-radius: 18px;
+      }
+      .optai-project-overview {
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        padding: 2px 2px 14px;
+      }
+      .optai-project-overview .projects-stats {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        gap: 22px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.55);
+      }
+      .optai-project-overview .projects-stat { text-align: left; }
+      .optai-logo-wrap { width: 64px; height: 64px; }
+      .optai-logo-wrap img { width: 60px; }
+      .optai-project-title { font-size: 18px; }
+      .optai-project-copy { font-size: 12.5px; }
 
-      .project-card-header {
+      .project-timeline { grid-template-columns: 1fr; gap: 12px; }
+      .project-card,
+      .project-card:first-child { min-height: 0; }
+      .project-card-body { padding: 16px 18px 14px; gap: 10px; }
+      .project-client-panel { min-height: 0; }
+      .project-card:first-child .project-title,
+      .project-title { font-size: 16.5px; }
+      .project-desc-text { -webkit-line-clamp: 3; line-clamp: 3; font-size: 13px; }
+      .project-client-logo { padding: 5px 10px; }
+      .project-client-logo-img { max-width: 64px; max-height: 16px; }
+      .project-client-logo-img-lg { max-width: 70px; max-height: 20px; }
+
+      .gallery-mode .optai-project-overview {
+        align-items: flex-start;
         flex-direction: column;
-        gap: 8px;
+      }
+
+      .gallery-mode .projects-stats {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .gallery-mode .project-timeline {
+        display: flex;
+        gap: 0;
+        margin-left: -16px;
+      }
+
+      .gallery-mode .project-card {
+        flex: 0 0 min(320px, calc(100vw - 48px));
+        padding-left: 16px;
+      }
+
+      .gallery-mode .project-card-body {
+        display: block;
+        aspect-ratio: 1 / 1;
+        min-height: 0;
+        padding: 0;
+      }
+
+      .gallery-mode .project-client-panel {
+        min-height: 0;
+      }
+
+      .gallery-mode .project-client-logo {
+        padding: 6px 9px;
+      }
+
+      .gallery-mode .project-client-logo-img,
+      .gallery-mode .project-client-logo-img-lg {
+        max-width: 76px;
+        max-height: 22px;
+      }
+
+      .gallery-mode .project-content-panel {
+        padding: 0 20px 22px;
+      }
+
+      .gallery-mode .project-title,
+      .gallery-mode .project-card:first-child .project-title {
+        font-size: 18px;
+      }
+
+      .project-client-watermark {
+        transform: translateY(-8px) scale(1.18);
       }
 
       .projects-intro {
@@ -1285,6 +2373,56 @@
   </style>
 </head>
 <body>
+  <svg style="display: none;" aria-hidden="true" focusable="false">
+    <filter
+      id="glass-distortion"
+      x="0%"
+      y="0%"
+      width="100%"
+      height="100%"
+      filterUnits="objectBoundingBox"
+    >
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.001 0.005"
+        numOctaves="1"
+        seed="17"
+        result="turbulence"
+      />
+      <feComponentTransfer in="turbulence" result="mapped">
+        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+      </feComponentTransfer>
+      <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+      <feSpecularLighting
+        in="softMap"
+        surfaceScale="5"
+        specularConstant="1"
+        specularExponent="100"
+        lightingColor="white"
+        result="specLight"
+      >
+        <fePointLight x="-200" y="-200" z="300" />
+      </feSpecularLighting>
+      <feComposite
+        in="specLight"
+        operator="arithmetic"
+        k1="0"
+        k2="1"
+        k3="1"
+        k4="0"
+        result="litImage"
+      />
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="softMap"
+        scale="200"
+        xChannelSelector="R"
+        yChannelSelector="G"
+      />
+    </filter>
+  </svg>
 
   <!-- Navigation -->
   <nav>
@@ -1297,6 +2435,7 @@
         <a href="#projects" class="nav-section-link">Industry</a>
         <a href="#opensource" class="nav-section-link">Open Source</a>
         <a href="#contact" class="nav-section-link">Contact</a>
+        <a href="/deadlines.html" class="nav-section-link">Deadline</a>
         <a href="/blog/" class="nav-section-link">Blog</a>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
@@ -1391,11 +2530,36 @@
       <div class="projects-intro">
         <div>
           <h2 class="section-title">Industry Projects</h2>
-          <p class="section-subtitle" style="margin-bottom: 0;">Applied research and production deployments</p>
+          <p class="section-subtitle" style="margin-bottom: 0;">OptAI client projects and applied on-device AI deployments</p>
         </div>
-        <div class="projects-stats" id="projects-stats"></div>
+        <div class="project-carousel-controls" aria-label="Project carousel controls">
+          <button class="project-carousel-btn" id="projectCarouselPrev" type="button" aria-label="Previous project">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 18 9 12l6-6"/></svg>
+          </button>
+          <button class="project-carousel-btn" id="projectCarouselNext" type="button" aria-label="Next project">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="project-timeline" id="projects-container"></div>
+      <div class="optai-project-block gallery-mode">
+        <aside class="optai-project-overview">
+          <div class="optai-project-brand">
+            <div class="optai-logo-wrap">
+              <img src="./assets/logos/optai-logo.png" alt="OptAI logo">
+            </div>
+            <div>
+              <p class="optai-project-kicker">OptAI Inc.</p>
+              <h3 class="optai-project-title">On-Device AI Client Projects</h3>
+              <p class="optai-project-copy">Applied research and deployment work completed while working at OptAI.</p>
+            </div>
+          </div>
+          <div class="projects-stats" id="projects-stats"></div>
+        </aside>
+        <div class="project-carousel-shell">
+          <div class="project-timeline" id="projects-container"></div>
+        </div>
+        <div class="project-carousel-dots" id="projectCarouselDots" aria-label="Project carousel pagination"></div>
+      </div>
     </section>
     <div class="project-modal-backdrop" id="projectModalBackdrop" aria-hidden="true">
       <div class="project-modal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
@@ -1406,6 +2570,7 @@
         <div class="project-page">
           <img class="project-media-hero" id="projectModalHero" alt="Project cover image">
           <p class="project-modal-overview" id="projectModalOverview"></p>
+          <div class="project-modal-tags" id="projectModalTags"></div>
 
           <section class="project-section">
             <h4>Context</h4>
@@ -1529,6 +2694,7 @@
     const projectModalClient = document.getElementById('projectModalClient');
     const projectModalHero = document.getElementById('projectModalHero');
     const projectModalOverview = document.getElementById('projectModalOverview');
+    const projectModalTags = document.getElementById('projectModalTags');
     const projectModalContext = document.getElementById('projectModalContext');
     const projectModalRole = document.getElementById('projectModalRole');
     const projectModalApproach = document.getElementById('projectModalApproach');
@@ -1677,6 +2843,10 @@
       projectModalTitle.textContent = project.title;
       projectModalClient.textContent = 'Client: ' + project.client;
       projectModalOverview.textContent = project.overview || 'Write a short executive summary: what problem this project solved, for whom, and what changed after deployment.';
+      var modalTags = (Array.isArray(project.tags) && project.tags.length) ? project.tags : extractTechTags(project.description || []);
+      projectModalTags.innerHTML = modalTags.map(function(t) {
+        return '<span class="project-tag">' + escapeHtml(t) + '</span>';
+      }).join('');
       renderProjectImages(project.heroImage, project.gallery);
 
       renderList(projectModalContext, project.context, [
@@ -1749,8 +2919,61 @@
       return tags.slice(0, 4);
     }
 
+    function renderClientLogo(client) {
+      var normalized = (client || '').toLowerCase();
+      if (normalized.indexOf('lg') !== -1) {
+        return '<img class="project-client-logo-img project-client-logo-img-lg" src="./assets/logos/lg-uplus-logo.svg" alt="LG Uplus logo">';
+      }
+      if (normalized.indexOf('polaris') !== -1) {
+        return '<img class="project-client-logo-img" src="./assets/logos/polaris-office-logo.svg" alt="Polaris Office logo"><span class="project-client-logo-sub">Polaris Office</span>';
+      }
+      if (normalized.indexOf('samsung') !== -1) {
+        var sub = normalized.indexOf('lsi') !== -1
+          ? '<span class="project-client-logo-sub">S.LSI</span>'
+          : '';
+        return '<img class="project-client-logo-img project-client-logo-img-samsung" src="./assets/logos/samsung-logo.svg" alt="Samsung logo">' + sub;
+      }
+      return '<span class="project-client-logo-main">' + escapeHtml(client || 'Client') + '</span><span class="project-client-logo-sub">Client</span>';
+    }
+
+    var PROJECT_COVER_IMAGES = [
+      'https://images.unsplash.com/photo-1551250928-243dc937c49d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1551250928-e4a05afaed1e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1536735561749-fc87494598cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1548324215-9133768e4094?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      'https://images.unsplash.com/photo-1550070881-a5d71eda5800?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080'
+    ];
+
+    function updateProjectCarouselState(container, dots, prevButton, nextButton) {
+      if (!container) return;
+      var cards = Array.from(container.querySelectorAll('.project-card'));
+      var maxScroll = container.scrollWidth - container.clientWidth - 2;
+      var activeIndex = 0;
+      var minDistance = Infinity;
+
+      cards.forEach(function(card, index) {
+        var distance = Math.abs(card.offsetLeft - container.scrollLeft);
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeIndex = index;
+        }
+      });
+
+      if (prevButton) prevButton.disabled = container.scrollLeft <= 2;
+      if (nextButton) nextButton.disabled = container.scrollLeft >= maxScroll;
+
+      if (dots) {
+        Array.from(dots.children).forEach(function(dot, index) {
+          dot.classList.toggle('active', index === activeIndex);
+        });
+      }
+    }
+
     function renderProjects(data) {
       var el = document.getElementById('projects-container');
+      var dotsEl = document.getElementById('projectCarouselDots');
+      var prevButton = document.getElementById('projectCarouselPrev');
+      var nextButton = document.getElementById('projectCarouselNext');
 
       // Compute stats
       var clients = [];
@@ -1763,32 +2986,137 @@
         '<div class="projects-stat"><div class="projects-stat-num">' + clients.length + '</div><div class="projects-stat-label">Clients</div></div>';
 
       el.innerHTML = data.map(function(p, idx) {
-        var tags = extractTechTags(p.description || []);
-        var tagsHtml = tags.map(function(t) { return '<span class="project-tag">' + t + '</span>'; }).join('');
+        var tags = (Array.isArray(p.tags) && p.tags.length) ? p.tags : extractTechTags(p.description || []);
+        var tagsHtml = tags.map(function(t) { return '<span class="project-tag">' + escapeHtml(t) + '</span>'; }).join('');
+        var summary = p.overview && p.overview.indexOf('Add') !== 0 ? p.overview : (p.description && p.description[0] || '');
+        var coverImage = p.coverImage || PROJECT_COVER_IMAGES[idx % PROJECT_COVER_IMAGES.length];
+        var typeRaw = (p.type || '').toString().trim();
+        var typeKey = typeRaw.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        var typeBadge = typeRaw
+          ? '<span class="project-type-badge project-type-' + escapeHtml(typeKey) + '">' + escapeHtml(typeRaw) + '</span>'
+          : '';
         return '<article class="project-card">' +
-          '<div class="project-card-body">' +
-            '<div class="project-card-header">' +
-              '<div>' +
-                '<p class="project-period">' + p.period + '</p>' +
-                '<h3 class="project-title">' + p.title + '</h3>' +
+          '<a class="project-card-body" href="#projects" data-project-index="' + idx + '" style="--card-index:' + idx + '">' +
+            '<img class="project-card-image" src="' + escapeHtml(coverImage) + '" alt="' + escapeHtml(p.title) + ' cover image" loading="lazy">' +
+            '<div class="project-client-watermark" aria-hidden="true">' + renderClientLogo(p.client) + '</div>' +
+            '<div class="project-client-panel">' +
+              '<div class="project-card-topline">' +
+                typeBadge +
+                '<p class="project-period">' + escapeHtml(p.period) + '</p>' +
+                '<span class="project-index">' + String(idx + 1).padStart(2, '0') + '</span>' +
               '</div>' +
-              '<span class="project-client-badge">' + p.client + '</span>' +
             '</div>' +
-            '<p class="project-desc-text">' + (p.overview && p.overview.indexOf('Add') !== 0 ? p.overview : (p.description && p.description[0] || '')) + '</p>' +
-            (tagsHtml ? '<div class="project-tags">' + tagsHtml + '</div>' : '') +
-            '<button class="project-open-btn" data-project-index="' + idx + '">View Details ' + ARROW_ICON + '</button>' +
-          '</div>' +
+            '<div class="project-content-panel">' +
+              '<h3 class="project-title">' + escapeHtml(p.title) + '</h3>' +
+              '<p class="project-desc-text">' + escapeHtml(summary) + '</p>' +
+              (tagsHtml ? '<div class="project-tags">' + tagsHtml + '</div>' : '') +
+              '<span class="project-read-more">Read more ' + ARROW_ICON + '</span>' +
+            '</div>' +
+          '</a>' +
         '</article>';
       }).join('');
 
-      document.querySelectorAll('.project-open-btn').forEach(function(button) {
-        button.addEventListener('click', function() {
-          var idx = Number(button.getAttribute('data-project-index'));
+      dotsEl.innerHTML = data.map(function(_, idx) {
+        return '<button class="project-carousel-dot" type="button" aria-label="Go to project ' + (idx + 1) + '" data-project-dot="' + idx + '"></button>';
+      }).join('');
+
+      function scrollToProject(index) {
+        var cards = Array.from(el.querySelectorAll('.project-card'));
+        if (!cards[index]) return;
+        el.scrollTo({ left: cards[index].offsetLeft, behavior: 'smooth' });
+      }
+
+      prevButton.onclick = function() {
+        var cards = Array.from(el.querySelectorAll('.project-card'));
+        var current = 0;
+        cards.forEach(function(card, index) {
+          if (card.offsetLeft <= el.scrollLeft + 4) current = index;
+        });
+        scrollToProject(Math.max(0, current - 1));
+      };
+
+      nextButton.onclick = function() {
+        var cards = Array.from(el.querySelectorAll('.project-card'));
+        var current = 0;
+        cards.forEach(function(card, index) {
+          if (card.offsetLeft <= el.scrollLeft + 4) current = index;
+        });
+        scrollToProject(Math.min(cards.length - 1, current + 1));
+      };
+
+      dotsEl.querySelectorAll('.project-carousel-dot').forEach(function(dot) {
+        dot.addEventListener('click', function() {
+          scrollToProject(Number(dot.getAttribute('data-project-dot')));
+        });
+      });
+
+      var isDragging = false;
+      var dragMoved = false;
+      var dragStartX = 0;
+      var dragStartScroll = 0;
+      var activePointerId = null;
+
+      el.addEventListener('pointerdown', function(event) {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        isDragging = true;
+        dragMoved = false;
+        activePointerId = event.pointerId;
+        dragStartX = event.clientX;
+        dragStartScroll = el.scrollLeft;
+        el.classList.add('is-dragging');
+        if (el.setPointerCapture) {
+          el.setPointerCapture(event.pointerId);
+        }
+      });
+
+      el.addEventListener('pointermove', function(event) {
+        if (!isDragging || event.pointerId !== activePointerId) return;
+        var deltaX = event.clientX - dragStartX;
+        if (Math.abs(deltaX) > 6) {
+          dragMoved = true;
+        }
+        el.scrollLeft = dragStartScroll - deltaX;
+        if (dragMoved) {
+          event.preventDefault();
+        }
+      });
+
+      function endDrag(event) {
+        if (!isDragging || (event && event.pointerId !== activePointerId)) return;
+        isDragging = false;
+        activePointerId = null;
+        el.classList.remove('is-dragging');
+        updateProjectCarouselState(el, dotsEl, prevButton, nextButton);
+      }
+
+      el.addEventListener('pointerup', endDrag);
+      el.addEventListener('pointercancel', endDrag);
+      el.addEventListener('pointerleave', endDrag);
+
+      el.querySelectorAll('.project-card-body').forEach(function(card) {
+        card.addEventListener('dragstart', function(event) {
+          event.preventDefault();
+        });
+
+        card.addEventListener('click', function(event) {
+          event.preventDefault();
+          if (dragMoved) {
+            dragMoved = false;
+            return;
+          }
+          var idx = Number(card.getAttribute('data-project-index'));
           if (!Number.isNaN(idx) && data[idx]) {
             openProjectModal(data[idx]);
           }
         });
       });
+
+      var updateState = function() {
+        updateProjectCarouselState(el, dotsEl, prevButton, nextButton);
+      };
+      el.addEventListener('scroll', updateState, { passive: true });
+      window.addEventListener('resize', updateState);
+      updateState();
     }
 
     // ========== Render: Open Source ==========

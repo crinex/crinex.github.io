@@ -1,8 +1,60 @@
 [
   {
+    "title": "On-Device LLM Optimization for SAMSUNG Exynos",
+    "period": "2026.03 - 2026.05",
+    "client": "SAMSUNG S.LSI",
+    "type": "PoC",
+    "overview": "Add a concise summary of this iOS ANE deployment project and why it mattered for the product.",
+    "heroImage": "./assets/jyoung_profile.png",
+    "gallery": ["./assets/jyoung_profile.png", "./assets/nimbo_play.png", "./assets/jyoung_profile.png"],
+    "context": [
+      "Goal: Enter your top-line business or product goal.",
+      "Users: Enter who directly benefited from this release.",
+      "Platform: iOS / Apple ANE / mobile memory constraints"
+    ],
+    "roleScope": [
+      "Role: Enter your ownership level and decision authority.",
+      "Scope: Enter which models/features were in scope.",
+      "Collaboration: Enter key stakeholders and partner teams."
+    ],
+    "description": [
+      "Optimized LLM to run efficiently on SAMSUNG Exynos 2600",
+      "Performed graph restructuring, operator replacements, and memory optimizations aligned with ANE limitations",
+      "Made official contribution to the Anemll framework",
+      "Validated performance and model quality for deployment in LG Uplus ixi-O mobile service"
+    ],
+    "approach": [
+      "Describe ANE-aware graph redesign and operator strategy.",
+      "Describe memory optimization techniques and pipeline changes.",
+      "Describe evaluation flow (latency, stability, quality)."
+    ],
+    "challenges": [
+      "Document hardest engineering constraints.",
+      "Document the trade-off you made and why.",
+      "Document mitigation/rollback strategy."
+    ],
+    "metrics": [
+      "Latency: add baseline -> result.",
+      "Memory: add peak usage reduction.",
+      "Quality: add evaluation result delta."
+    ],
+    "links": [
+      {"label": "Add architecture diagram", "url": "#"},
+      {"label": "Add demo video", "url": "#"},
+      {"label": "Add release note / PR", "url": "#"}
+    ],
+    "nextSteps": [
+      "Add follow-up optimization plan.",
+      "Add scaling plan to more devices/models.",
+      "Add production monitoring plan."
+    ]
+  },
+  {
     "title": "EXAONE-4.0 On-Device LLM Optimization for iOS ANE",
     "period": "2025.11 – 2026.02",
     "client": "LG Uplus",
+    "type": "Product",
+    "tags": ["Apple ANE", "CoreML", "Quantization", "iOS"],
     "overview": "Add a concise summary of this iOS ANE deployment project and why it mattered for the product.",
     "heroImage": "./assets/jyoung_profile.png",
     "gallery": ["./assets/jyoung_profile.png", "./assets/nimbo_play.png", "./assets/jyoung_profile.png"],
@@ -52,6 +104,7 @@
     "title": "LLM-based Document Analysis for Intel NPU",
     "period": "2025.07 – 2025.12",
     "client": "Polaris Office",
+    "type": "PoC",
     "overview": "Add one paragraph explaining this enterprise document intelligence project and key product impact.",
     "heroImage": "./assets/jyoung_profile.png",
     "gallery": ["./assets/jyoung_profile.png", "./assets/jyoung_profile.png", "./assets/nimbo_play.png"],
@@ -81,6 +134,7 @@
     "title": "EXAONE-4.0 On-Device LLM Optimization for Qualcomm Snapdragon NPU",
     "period": "2025.09 – 2025.12",
     "client": "LG Uplus",
+    "type": "Product",
     "overview": "Add one paragraph summarizing why this Snapdragon track was critical and what was unlocked.",
     "heroImage": "./assets/jyoung_profile.png",
     "gallery": ["./assets/jyoung_profile.png", "./assets/nimbo_play.png", "./assets/jyoung_profile.png"],
@@ -102,6 +156,7 @@
     "title": "EXAONE-3.5 On-Device LLM Advancement for Qualcomm Snapdragon NPU",
     "period": "2025.02 – 2025.07",
     "client": "LG Uplus",
+    "type": "Product",
     "overview": "Add one paragraph explaining domain adaptation strategy and customer support impact.",
     "heroImage": "./assets/jyoung_profile.png",
     "gallery": ["./assets/nimbo_play.png", "./assets/jyoung_profile.png", "./assets/jyoung_profile.png"],
@@ -123,6 +178,7 @@
     "title": "On-Device LLM Optimization",
     "period": "2024.09 – 2024.12",
     "client": "LG Uplus",
+    "type": "PoC",
     "overview": "Add one paragraph showing the baseline build and how it enabled later versions.",
     "heroImage": "./assets/jyoung_profile.png",
     "gallery": ["./assets/jyoung_profile.png", "./assets/jyoung_profile.png", "./assets/jyoung_profile.png"],
