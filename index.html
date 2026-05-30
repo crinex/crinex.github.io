@@ -1373,6 +1373,13 @@
       background: var(--bg-secondary);
     }
 
+    .project-modal-empty .project-modal-period,
+    .project-modal-empty .project-modal-title,
+    .project-modal-empty .project-modal-client,
+    .project-modal-empty .project-page {
+      display: none;
+    }
+
     .project-modal-title {
       font-family: var(--serif);
       font-size: 24px;
@@ -2562,7 +2569,7 @@
       </div>
     </section>
     <div class="project-modal-backdrop" id="projectModalBackdrop" aria-hidden="true">
-      <div class="project-modal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <div class="project-modal project-modal-empty" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
         <button class="project-modal-close" id="projectModalClose" aria-label="Close">&#x2715;</button>
         <p class="project-modal-period" id="projectModalPeriod"></p>
         <h3 class="project-modal-title" id="projectModalTitle"></h3>
